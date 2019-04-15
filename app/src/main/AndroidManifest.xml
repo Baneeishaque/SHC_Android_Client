@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.symptomate">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Activity_Launcher_Collection">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".D5" />
+        <activity android:name=".D4" />
+        <activity android:name=".DISEASE3" />
+        <activity android:name=".DISEASE2" />
+        <activity android:name=".disease1" />
+        <activity android:name=".PREDICTING" />
+        <activity android:name=".AppointmentlstActivity" />
+        <activity android:name=".AddleaveActivity" />
+        <activity android:name=".DoctorshomeActivity" />
+        <activity android:name=".Re" />
+        <activity android:name=".INTERVIEW3" />
+        <activity android:name=".INTERVIEW2" />
+        <activity android:name=".INTERVIEW" />
+        <activity android:name=".REGIONS" />
+        <activity android:name=".POINT" />
+        <activity android:name=".SEAR" />
+        <activity android:name=".SYMPTOMS" />
+        <activity android:name=".PATIENT3" />
+        <activity android:name=".PATIENT2" />
+        <activity android:name=".PATIENT1" />
+        <activity android:name=".TERMS" />
+        <activity android:name=".Main2Activity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
