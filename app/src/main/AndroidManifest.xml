@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.symptomate">
+    package="ndk.ccetv_group8.shc">
 
     <application
         android:allowBackup="true"
@@ -9,13 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity_Launcher_Collection">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".D5" />
         <activity android:name=".D4" />
         <activity android:name=".DISEASE3" />
@@ -37,8 +30,17 @@
         <activity android:name=".PATIENT2" />
         <activity android:name=".PATIENT1" />
         <activity android:name=".TERMS" />
-        <activity android:name=".Main2Activity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".IntroductionActivity" />
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".LaunchersActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

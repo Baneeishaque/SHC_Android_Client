@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".D5">
+    tools:context="ndk.ccetv_group8.shc.D5">
 
     <EditText
         android:id="@+id/editText8"
