@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SHC</string>
+    <string name="add_your_symptoms">Add your Symptoms</string>
+    <string name="add_as_many_symptoms_as_you_can_for_the_most_accurate_results">Add as many symptoms as you can for the most accurate results.</string>
+    <string name="enter_your_symptom">Enter Your Symptom</string>
+    <string name="app_full_name">Smart Health Consultation</string>
+    <string name="add_symptom">Add Symptom</string>
+    <string name="submit">Submit</string>
+    <string name="evaluate_symptoms">Evaluate Symptoms</string>
 </resources>

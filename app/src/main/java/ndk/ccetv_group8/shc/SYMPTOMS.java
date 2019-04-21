@@ -10,6 +10,6 @@ public class SYMPTOMS extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_symptoms);
+        setContentView(R.layout.activity_symptoms_old);
     }
 }
