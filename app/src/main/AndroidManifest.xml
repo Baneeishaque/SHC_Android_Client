@@ -56,6 +56,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
+        <activity
+            android:name=".DiseasePredictionFailureNoMatch"
+            android:label="@string/no_match">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".DiseasePredictionFailureNeedMoreSymptoms"
+            android:label="@string/more_symptoms_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".DoctorHomeActivity" />
+        <activity android:name=".DiseasePredictionSuccess" />
+
+    </application>
 </manifest>

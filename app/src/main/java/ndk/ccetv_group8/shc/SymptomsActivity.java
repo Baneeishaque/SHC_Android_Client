@@ -27,58 +27,55 @@ import ndk.utils_android16.Toast_Utils;
 
 public class SymptomsActivity extends ContextActivity {
 
-//    private static final String SHC_TAG = "SH Consultation";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_symptoms2);
+        setContentView(R.layout.activity_symptoms);
 
         ScrollView scrollView = findViewById(R.id.scrollView);
         ProgressBar progressBar = findViewById(R.id.progressBar);
 
         //TODO : To file utils - Read Text file to string
-        // Reading json file from assets folder
-        StringBuilder sb = new StringBuilder();
-        BufferedReader br = null;
+
+        //Reading json file from assets folder
+        StringBuilder stringBuilder = new StringBuilder();
+        BufferedReader bufferedReader = null;
         try {
-            br = new BufferedReader(new InputStreamReader(getAssets().open(
+            bufferedReader = new BufferedReader(new InputStreamReader(getAssets().open(
                     "features.json")));
             String temp;
-            while ((temp = br.readLine()) != null)
-                sb.append(temp);
+            while ((temp = bufferedReader.readLine()) != null)
+                stringBuilder.append(temp);
         } catch (IOException e) {
-//            Log.d(SHC_TAG, "Error : " + e.getLocalizedMessage());
             ErrorUtilsWrapper.displayException(getApplicationContext(), e);
         } finally {
             try {
-                if (br != null) {
-                    br.close(); // stop reading
+                if (bufferedReader != null) {
+                    //stop reading
+                    bufferedReader.close();
                 }
             } catch (IOException e) {
-//                Log.d(SHC_TAG, "Error : " + e.getLocalizedMessage());
                 ErrorUtilsWrapper.displayException(getApplicationContext(), e);
             }
         }
-        String featuresJSON = sb.toString();
+        //TODO : from json file json keys to android string array
+        String featuresJSON = stringBuilder.toString();
 
         //TODO : - Read keys of json file
-        JSONObject resobj = null;
-        List<String> data = new ArrayList<>();
+        JSONObject jsonObject;
+        List<Object> data = new ArrayList<>();
         try {
-            resobj = new JSONObject(featuresJSON);
-            Iterator<?> keys = resobj.keys();
+            jsonObject = new JSONObject(featuresJSON);
+            Iterator<?> keys = jsonObject.keys();
             while (keys.hasNext()) {
                 // TODO : To JSON Utils - Read Keys of json string - key further processing interface
                 String key = (String) keys.next();
-//                Log.d(SHC_TAG, "Key : " + key);
                 LogUtilsWrapper.debug("Key : " + key);
                 // TODO : To JSON Utils - Read Keys of json string to string list
                 // TODO : To JSON Utils - Read Keys of json file to string list
                 data.add(key);
             }
         } catch (JSONException e) {
-//            Log.d(SHC_TAG, "Error : " + e.getLocalizedMessage());
             ErrorUtilsWrapper.displayException(getApplicationContext(), e);
         }
 
@@ -93,29 +90,28 @@ public class SymptomsActivity extends ContextActivity {
         //TODO : To UI Utils - multi enable & multi disable
         buttonAddSymptom.setEnabled(false);
 
-        Button buttonEvaluateSymptoms = findViewById(R.id.buttonEvaluateSymptom);
+        Button buttonEvaluateSymptoms = findViewById(R.id.buttonEvaluateSymptoms);
         buttonEvaluateSymptoms.setEnabled(false);
 
-        KMPAutoComplTextView complTextView = findViewById(R.id.tvAutoCompl);
-        complTextView.setDatas(data);
-        complTextView.setOnPopupItemClickListener(charSequence -> {
+        KMPAutoComplTextView editTextSymptom = findViewById(R.id.editTextSymptom);
+        editTextSymptom.setDatas(data);
+
+        editTextSymptom.setOnPopupItemClickListener((item, charSequence) -> {
             //TODO : Make Toast Activity
             //TODO : Make Toast Composition Activity
             //TODO : Short Toast
-            Toast_Utils.longToast(getApplicationContext(), "Symptom : " + charSequence.toString());
-//            Toast.makeText(activity_context, charSequence.toString(), Toast.LENGTH_SHORT).show();
+            Toast_Utils.longToast(getApplicationContext(), getResources().getString(R.string.symptom) + charSequence.toString());
             buttonAddSymptom.setEnabled(true);
         });
 
         buttonAddSymptom.setOnClickListener(v -> {
-            String symptom = complTextView.getText().toString();
+            String symptom = editTextSymptom.getText().toString();
             if (!symptom.isEmpty()) {
                 //TODO : Validate symptom
-                Toast_Utils.longToast(getApplicationContext(), "Symptom : " + symptom);
-//                Toast.makeText(getApplicationContext(), symptom, Toast.LENGTH_SHORT).show();
-//                addTagWithRefreshList(tagGroup,symptom,data,complTextView, buttonAddSymptom, buttonEvaluateSymptoms);
+                Toast_Utils.longToast(getApplicationContext(), getResources().getString(R.string.symptom) + symptom);
+//                addTagWithRefreshList(tagGroup,symptom,data,editTextSymptom, buttonAddSymptom, buttonEvaluateSymptoms);
 //                addTag(tagGroup, symptom);
-                addTagWithEvaluation(tagGroup, symptom, data, complTextView, buttonAddSymptom, buttonEvaluateSymptoms);
+                addTagWithEvaluation(tagGroup, symptom, data, editTextSymptom, buttonAddSymptom, buttonEvaluateSymptoms);
             }
         });
 
@@ -127,7 +123,7 @@ public class SymptomsActivity extends ContextActivity {
 //        addTag(tagGroup, "tagName");
 
         //TODO : To tagview Utils - add tag via array list
-//        //You can add multiple tag via ArrayList
+        //You can add multiple tag via ArrayList
 //        ArrayList<Tag> tagArrayList = new ArrayList<>();
 //        tagArrayList.add(new Tag("TA1"));
 //        tagArrayList.add(new Tag("TA2"));
@@ -135,7 +131,7 @@ public class SymptomsActivity extends ContextActivity {
 //        tagGroup.addTags(tagArrayList);
 
         //TODO : To tagview Utils - add tag via string array
-//        //Via string array
+        //Via string array
 //        tagGroup.addTags(new String[]{"t1", "t2"});
 
         //set click listener
@@ -152,17 +148,11 @@ public class SymptomsActivity extends ContextActivity {
             // TODO : Alert * Utils - Default No Action Dialogues
             // TODO : Alert * Utils - Cancelable & Un cancelable Dialogues
 
-            new Alert_Dialog_Utils((dialog, which) -> removeTagWithEvaluation(view, position, tag1, tagGroup, buttonEvaluateSymptoms, data, complTextView), (dialog, which) -> {
-            }).titled_Yes_No_Dialogue(activity_context, "\"" + tag1.text + "\" will be delete. Are you sure?", "Caution!", true);
-
-//            AlertDialog.Builder builder = new AlertDialog.Builder(activity_context);
-//            builder.setMessage("\"" + tag1.text + "\" will be delete. Are you sure?");
-//            builder.setPositiveButton("Yes", (dialog, which) -> {
-////                removeTagWithRefreshList(view,position,tag1,tagGroup,buttonEvaluateSymptoms,data,complTextView);
-//                removeTagWithEvaluation(view, position, tag1, tagGroup, buttonEvaluateSymptoms, data, complTextView);
-//            });
-//            builder.setNegativeButton("No", null);
-//            builder.show();
+            new Alert_Dialog_Utils((dialog, which) -> {
+//                removeTagWithRefreshList(view, position, tag1, tagGroup, buttonEvaluateSymptoms, data, editTextSymptom);
+                removeTagWithEvaluation(view, position, tag1, tagGroup, buttonEvaluateSymptoms, data, editTextSymptom);
+            }, (dialog, which) -> {
+            }).titled_Yes_No_Dialogue(activity_context, "\"" + tag1.text + getResources().getString(R.string.delete_confirmation), getResources().getString(R.string.caution), true);
         });
 
         //set long click listener
@@ -185,24 +175,22 @@ public class SymptomsActivity extends ContextActivity {
             }
 
             new RESTGETTaskUtilsWrapper().execute(APIUtilsWrapper.getHTTPAPI("" + symptoms), activity_context, progressBar, scrollView, (RESTGETTask.Async_Response) response -> {
-
                 Toast_Utils.longToast(getApplicationContext(), "Disease : " + StringUtils.removeQuotations(response));
             });
         });
     }
 
     //TODO : To tagview Utils - removeTagWithEvaluation of components
-    private void removeTagWithEvaluation(TagView view, int position, Tag tag1, TagView tagGroup, Button buttonEvaluateSymptoms, List<String> data, KMPAutoComplTextView complTextView) {
+    private void removeTagWithEvaluation(TagView view, int position, Tag tag1, TagView tagGroup, Button buttonEvaluateSymptoms, List<Object> data, KMPAutoComplTextView complTextView) {
         view.remove(position);
-        Toast_Utils.longToast(getApplicationContext(), "\"" + tag1.text + "\" deleted");
-//        Toast.makeText(getApplicationContext(), "\"" + tag1.text + "\" deleted", Toast.LENGTH_SHORT).show();
+        Toast_Utils.longToast(getApplicationContext(), "\"" + tag1.text + getResources().getString(R.string.deleted));
         checkEvaluateSymptomsButton(buttonEvaluateSymptoms, tagGroup);
 //        data.add(tag1.text);
 //        complTextView.setDatas(data);
     }
 
     //TODO : To tagview Utils - addTagWithEvaluation of components
-    private void addTagWithEvaluation(TagView tagGroup, String symptom, List<String> data, KMPAutoComplTextView complTextView, Button buttonAddSymptom, Button buttonEvaluateSymptoms) {
+    private void addTagWithEvaluation(TagView tagGroup, String symptom, List<Object> data, KMPAutoComplTextView complTextView, Button buttonAddSymptom, Button buttonEvaluateSymptoms) {
 
         if (!checkTagsForExistence(tagGroup, symptom)) {
             addTag(tagGroup, symptom);
@@ -210,8 +198,8 @@ public class SymptomsActivity extends ContextActivity {
         }
 //        TODO : Bug
 //        data.remove(symptom);
-//        TODO : Bug
         complTextView.setText("");
+//        TODO : Bug
 //        complTextView.setDatas(data);
         //TODO : Check Editor Events
         buttonAddSymptom.setEnabled(false);
@@ -229,17 +217,16 @@ public class SymptomsActivity extends ContextActivity {
     }
 
     //TODO : To tagview Utils - removeTagWith removal & Refresh List of string
-    private void removeTagWithRefreshList(TagView view, int position, Tag tag1, TagView tagGroup, Button buttonEvaluateSymptoms, List<String> data, KMPAutoComplTextView complTextView) {
+    private void removeTagWithRefreshList(TagView view, int position, Tag tag1, TagView tagGroup, Button buttonEvaluateSymptoms, List<Object> data, KMPAutoComplTextView complTextView) {
         view.remove(position);
-        Toast_Utils.longToast(getApplicationContext(), "\"" + tag1.text + "\" deleted");
-//        Toast.makeText(getApplicationContext(), "\"" + tag1.text + "\" deleted", Toast.LENGTH_SHORT).show();
+        Toast_Utils.longToast(getApplicationContext(), "\"" + tag1.text + getResources().getString(R.string.deleted));
         checkEvaluateSymptomsButton(buttonEvaluateSymptoms, tagGroup);
         data.add(tag1.text);
         complTextView.setDatas(data);
     }
 
     //TODO : To tagview Utils - addTagWith addition & Refresh List of string
-    private void addTagWithRefreshList(TagView tagGroup, String symptom, List<String> data, KMPAutoComplTextView complTextView, Button buttonAddSymptom, Button buttonEvaluateSymptoms) {
+    private void addTagWithRefreshList(TagView tagGroup, String symptom, List<Object> data, KMPAutoComplTextView complTextView, Button buttonAddSymptom, Button buttonEvaluateSymptoms) {
         addTag(tagGroup, symptom);
         data.remove(symptom);
 //        TODO : Bug
@@ -253,8 +240,6 @@ public class SymptomsActivity extends ContextActivity {
     private void checkEvaluateSymptomsButton(Button buttonEvaluateSymptoms, TagView tagGroup) {
         LogUtilsWrapper.debug("tagGroup Count : " + tagGroup.getChildCount());
         LogUtilsWrapper.debug("tagGroup Count : " + tagGroup.getTags().size());
-//        Log.d(SHC_TAG, "tagGroup Count : " + tagGroup.getChildCount());
-//        Log.d(SHC_TAG, "tagGroup Count : " + tagGroup.getTags().size());
         //TODO : tagview Lib - method for tag counts
         buttonEvaluateSymptoms.setEnabled(tagGroup.getChildCount() >= 4);
     }
