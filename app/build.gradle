@@ -5,7 +5,7 @@ android {
     defaultConfig {
         applicationId "ndk.ccetv_group8.shc"
 
-        minSdkVersion 17
+        minSdkVersion 19
         targetSdkVersion 28
 
         versionCode 1
@@ -50,6 +50,7 @@ dependencies {
 //    implementation 'com.github.Baneeishaque:Android_Common_Utils_API_17:506ffc2197'
 //    implementation 'com.github.Baneeishaque:Android_Common_Utils_API_17:04b9d2de23'
     implementation 'com.github.Baneeishaque:Android_Common_Utils_API_17:3c2642c132'
+    implementation 'com.github.Baneeishaque:Android_Common_Resources:feacd9a713'
 
     testImplementation 'junit:junit:4.12'
 

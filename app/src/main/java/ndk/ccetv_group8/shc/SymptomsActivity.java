@@ -41,11 +41,12 @@ public class SymptomsActivity extends ContextActivity {
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = null;
         try {
+            //TODO : Features to string array
             bufferedReader = new BufferedReader(new InputStreamReader(getAssets().open(
                     "features.json")));
-            String temp;
-            while ((temp = bufferedReader.readLine()) != null)
-                stringBuilder.append(temp);
+            String tempString;
+            while ((tempString = bufferedReader.readLine()) != null)
+                stringBuilder.append(tempString);
         } catch (IOException e) {
             ErrorUtilsWrapper.displayException(getApplicationContext(), e);
         } finally {

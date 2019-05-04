@@ -19,4 +19,6 @@
     <string name="more_symptoms">You need to add More Symptoms, Ready to goto Add Symptoms Page?</string>
     <string name="more_symptoms_title">More Symptoms</string>
     <string name="no_thanks">No, Thanks…</string>
+    <string name="server_ip_address">Server Address</string>
+    <string name="serverAddress">http://192.168.43.89:5000</string>
 </resources>
