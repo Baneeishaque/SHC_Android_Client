@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ActivityServerConfiguration"
-            android:label="@string/app_full_name">
+            android:label="@string/serverConfiguration">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,6 +20,7 @@
         </activity>
         <activity
             android:name=".SplashActivity"
+            android:label="Splash"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,7 +50,9 @@
         <activity android:name=".PATIENT1" />
         <activity android:name=".TERMS" />
         <activity android:name=".IntroductionActivity" />
-        <activity android:name=".LaunchersActivity">
+        <activity
+            android:name=".LaunchersActivity"
+            android:label="Launchers">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

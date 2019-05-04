@@ -49,6 +49,7 @@ public class ActivityServerConfiguration extends ContextActivity {
 //                        address = InetAddress.getByName(serverAddress);
                     APIConstants.SERVER_IP_ADDRESS = serverAddress;
                     SharedPreference_Utils.commit_Shared_Preferences(activity_context, ApplicationConstants.APPLICATION_NAME, new Pair[]{new Pair<>("serverAddress", serverAddress)});
+                    //TODO : DB of previous server addresses
                     ActivityUtils.start_activity_with_finish(activity_context, SplashActivity.class, ApplicationConstants.APPLICATION_NAME);
 //                    } catch (UnknownHostException ex) {
 //                        ErrorUtilsWrapper.displayException(activity_context, ex);

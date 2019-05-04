@@ -6,6 +6,8 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 
+import androidx.core.util.Pair;
+
 import com.cunoraz.tagview.Tag;
 import com.cunoraz.tagview.TagView;
 
@@ -21,6 +23,7 @@ import java.util.List;
 
 import cn.refactor.kmpautotextview.KMPAutoComplTextView;
 import ndk.ccetv_group8.shc.models.TagClass;
+import ndk.utils_android14.ActivityUtils;
 import ndk.utils_android14.ContextActivity;
 import ndk.utils_android16.Alert_Dialog_Utils;
 import ndk.utils_android16.Toast_Utils;
@@ -176,7 +179,14 @@ public class SymptomsActivity extends ContextActivity {
             }
 
             new RESTGETTaskUtilsWrapper().execute(APIUtilsWrapper.getHTTPAPI("" + symptoms), activity_context, progressBar, scrollView, (RESTGETTask.Async_Response) response -> {
-                Toast_Utils.longToast(getApplicationContext(), "Disease : " + StringUtils.removeQuotations(response));
+                String predictedDisease = StringUtils.removeQuotations(response);
+                if (predictedDisease.equals("exception")) {
+                    //TODO : Make scenarios for no match & More Symptoms & incorporate them
+                    ActivityUtils.start_activity(activity_context, DiseasePredictionFailureNoMatch.class);
+                } else {
+                    Toast_Utils.longToast(getApplicationContext(), "Disease : " + StringUtils.removeQuotations(response));
+                    ActivityUtils.start_activity_with_string_extras(activity_context, DiseasePredictionSuccess.class, new Pair[]{new Pair<>("predictedDisease", predictedDisease)}, false, 0);
+                }
             });
         });
     }
