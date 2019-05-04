@@ -25,4 +25,12 @@ public class ButtonUtils {
     public static View.OnClickListener getBackButtonEvent(AppCompatActivity appCompatActivity) {
         return v -> (appCompatActivity).onBackPressed();
     }
+
+    public static View.OnClickListener getButtonEvent(FurtherActions furtherActions) {
+        return v -> furtherActions.configureFurtherActions();
+    }
+
+    public interface FurtherActions {
+        void configureFurtherActions();
+    }
 }

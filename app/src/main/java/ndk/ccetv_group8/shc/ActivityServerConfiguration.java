@@ -1,7 +1,6 @@
 package ndk.ccetv_group8.shc;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
@@ -13,7 +12,6 @@ import java.util.Objects;
 
 import ndk.utils_android14.ActivityUtils;
 import ndk.utils_android14.ContextActivity;
-import ndk.utils_android16.Alert_Dialog_Utils;
 import ndk.utils_android16.SharedPreference_Utils;
 import ndk.utils_android16.Validation_Utils;
 
@@ -74,14 +72,7 @@ public class ActivityServerConfiguration extends ContextActivity {
 
     @Override
     public void onBackPressed() {
-        //TODO : To Utils - exit Back
-        new Alert_Dialog_Utils((dialog, which) -> {
-            //TODO : To Utils - Home activity
-            Intent in = new Intent(Intent.ACTION_MAIN);
-            in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            in.addCategory(Intent.CATEGORY_HOME);
-            startActivity(in);
-        }, (dialog, which) -> {
-        }).titled_Yes_No_Dialogue(activity_context, "Do you wish to Exit?", "Caution!", true);
+        //TODO : To Done - exit by Back presses
+        ndk.ccetv_group8.shc.ActivityUtils.toHomeActivityWithConfirmation(activity_context);
     }
 }
