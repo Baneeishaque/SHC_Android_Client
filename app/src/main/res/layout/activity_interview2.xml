@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".INTERVIEW2">
+    tools:context="ndk.ccetv_group8.shc.INTERVIEW2">
 
     <TextView
         android:id="@+id/textView23"

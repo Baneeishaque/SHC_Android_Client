@@ -1,82 +1,127 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".SYMPTOMS">
+    tools:context=".SymptomsActivity">
 
-    <TextView
-        android:id="@+id/textView13"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="SYMPTOMS" />
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:visibility="gone" />
 
-    <Space
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="15dp" />
+        android:layout_height="wrap_content">
 
-    <ImageButton
-        android:id="@+id/imageButton8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/button_onoff_indicator_on" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="15dp" />
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/add_your_symptoms"
+                android:textAlignment="textStart"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ADD YOUR SYMPTOMS" />
+            <TextView
+                android:id="@+id/textView34"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/add_as_many_symptoms_as_you_can_for_the_most_accurate_results"
+                android:textAlignment="textStart"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView33" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="15dp" />
+            <cn.refactor.kmpautotextview.KMPAutoComplTextView
+                android:id="@+id/editTextSymptom"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:completionThreshold="1"
+                android:dropDownWidth="match_parent"
+                android:dropDownHeight="wrap_content"
+                android:hint="@string/enter_your_symptom"
+                android:inputType="text"
+                android:textAlignment="textStart"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textStyle="bold"
+                app:completionHighlightColor="@color/colorAccent"
+                app:completionIgnoreCase="true"
+                app:completionTextColor="#80000000"
+                app:completionTextSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add as many syptoms as you can for the most accurate results" />
+            <Button
+                android:id="@+id/buttonAddSymptom"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/add_symptom"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextSymptom" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="15dp" />
+            <com.cunoraz.tagview.TagView xmlns:tagview="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/tag_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonAddSymptom"
+                tagview:lineMargin="5dp"
+                tagview:tagMargin="5dp"
+                tagview:textPaddingBottom="5dp"
+                tagview:textPaddingLeft="8dp"
+                tagview:textPaddingRight="8dp"
+                tagview:textPaddingTop="5dp" />
 
-    <ImageButton
-        android:id="@+id/imageButton9"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_input_add" />
+            <Button
+                android:id="@+id/buttonEvaluateSymptoms"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/evaluate_symptoms"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tag_group" />
 
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ADD SYMPTOM" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="15dp" />
-
-    <Button
-        android:id="@+id/button11"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="BACK" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="15dp" />
-
-    <Button
-        android:id="@+id/button12"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="NEXT" />
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </LinearLayout>

@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">symptomate</string>
+    <string name="app_name">SHC</string>
+    <string name="add_your_symptoms">Add your Symptoms</string>
+    <string name="add_as_many_symptoms_as_you_can_for_the_most_accurate_results">Add as many symptoms as you can for the most accurate results.</string>
+    <string name="enter_your_symptom">Enter Your Symptom</string>
+    <string name="app_full_name">Smart Health Consultation</string>
+    <string name="add_symptom">Add Symptom</string>
+    <string name="submit">Submit</string>
+    <string name="evaluate_symptoms">Evaluate Symptoms</string>
+    <string name="textview">TextView</string>
+    <string name="disease_prediction_failure_no_match">SHC failed to find your disease, You need a Human?</string>
+    <string name="no_match">No Match</string>
+    <string name="symptom">Symptom : </string>
+    <string name="caution">Caution!</string>
+    <string name="delete_confirmation">\" will be delete. Are you sure?</string>
+    <string name="deleted">\" deleted</string>
+    <string name="proceed">Yes, Proceed Please…</string>
+    <string name="try_again">No, Try again please…</string>
+    <string name="more_symptoms">You need to add More Symptoms, Ready to goto Add Symptoms Page?</string>
+    <string name="more_symptoms_title">More Symptoms</string>
+    <string name="no_thanks">No, Thanks…</string>
 </resources>

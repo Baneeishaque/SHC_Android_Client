@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Re">
+    tools:context="ndk.ccetv_group8.shc.Re">
 
     <ScrollView
         android:layout_width="match_parent"
