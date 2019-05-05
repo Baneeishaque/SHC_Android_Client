@@ -15,12 +15,20 @@
         app:theme="@style/ToolbarStyle"
         app:titleTextColor="@android:color/white" />
 
+    <TextView
+        android:id="@+id/textViewDisease"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/disease"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical" />
-
 
 </LinearLayout>
 

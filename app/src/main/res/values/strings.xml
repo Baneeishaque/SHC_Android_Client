@@ -24,4 +24,5 @@
     <string name="serverConfiguration">Server Configuration</string>
     <string name="title_activity_doctor">DoctorActivity</string>
     <string name="doctors">Doctors</string>
+    <string name="disease">Disease</string>
 </resources>

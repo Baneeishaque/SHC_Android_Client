@@ -4,7 +4,6 @@ import android.app.SearchManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputFilter;
-import android.text.Spanned;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -19,46 +18,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-
 public class DoctorActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-
-    // @BindView(R.id.recycler_view)
-    // RecyclerView recyclerView;
-
-    //@BindView(R.id.toolbar)
-    //Toolbar toolbar;
     private Toolbar toolbar;
 
     private RecyclerViewAdapter mAdapter;
-
     private ArrayList<AbstractModel> modelList = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor);
 
-        // ButterKnife.bind(this);
         findViews();
-        initToolbar("Takeoff Android");
+        setSupportActionBar(toolbar);
         setAdapter();
-
-
     }
 
     private void findViews() {
         toolbar = findViewById(R.id.toolbar);
-        recyclerView = findViewById(R.id.recycler_view);
-    }
-
-    public void initToolbar(String title) {
-        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        getSupportActionBar().setTitle(title);
+        recyclerView = findViewById(R.id.recyclerView);
     }
 
     @Override
@@ -67,7 +47,6 @@ public class DoctorActivity extends AppCompatActivity {
 
         getMenuInflater().inflate(R.menu.menu_search, menu);
 
-
         // Retrieve the SearchView and plug it into SearchManager
         final SearchView searchView = (SearchView) MenuItemCompat
                 .getActionView(menu.findItem(R.id.action_search));
@@ -75,7 +54,7 @@ public class DoctorActivity extends AppCompatActivity {
         SearchManager searchManager = (SearchManager) this.getSystemService(SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
 
-        //changing edittext color
+        //changing editText color
         EditText searchEdit = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
         searchEdit.setTextColor(Color.WHITE);
         searchEdit.setHintTextColor(Color.WHITE);
@@ -84,21 +63,12 @@ public class DoctorActivity extends AppCompatActivity {
 
         InputFilter[] fArray = new InputFilter[2];
         fArray[0] = new InputFilter.LengthFilter(40);
-        fArray[1] = new InputFilter() {
-            @Override
-            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-
-                for (int i = start; i < end; i++) {
-
-                    if (!Character.isLetterOrDigit(source.charAt(i)))
-                        return "";
-                }
-
-
-                return null;
-
-
+        fArray[1] = (source, start, end, dest, dstart, dend) -> {
+            for (int i = start; i < end; i++) {
+                if (!Character.isLetterOrDigit(source.charAt(i)))
+                    return "";
             }
+            return null;
         };
         searchEdit.setFilters(fArray);
         View v = searchView.findViewById(androidx.appcompat.R.id.search_plate);
@@ -120,21 +90,16 @@ public class DoctorActivity extends AppCompatActivity {
                             mAdapter.updateList(filterList);
                         }
                     }
-
                 } else {
                     mAdapter.updateList(modelList);
                 }
                 return false;
             }
         });
-
-
         return true;
     }
 
-
     private void setAdapter() {
-
 
         modelList.add(new AbstractModel("Android", "Hello " + " Android"));
         modelList.add(new AbstractModel("Beta", "Hello " + " Beta"));
@@ -152,46 +117,27 @@ public class DoctorActivity extends AppCompatActivity {
         modelList.add(new AbstractModel("Nougat", "Hello " + " Nougat"));
         modelList.add(new AbstractModel("Android O", "Hello " + " Android O"));
 
-
-        mAdapter = new RecyclerViewAdapter(DoctorActivity.this, modelList, "Header");
-
+        mAdapter = new RecyclerViewAdapter(DoctorActivity.this, modelList, "Doctors");
 
         recyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-
         recyclerView.setLayoutManager(layoutManager);
-
-
         recyclerView.setAdapter(mAdapter);
 
+        mAdapter.SetOnItemClickListener((view, position, model) -> {
 
-        mAdapter.SetOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position, AbstractModel model) {
+            //handle item click events here
+            Toast.makeText(DoctorActivity.this, "Hey " + model.getTitle(), Toast.LENGTH_SHORT).show();
 
-                //handle item click events here
-                Toast.makeText(DoctorActivity.this, "Hey " + model.getTitle(), Toast.LENGTH_SHORT).show();
-
-
-            }
         });
 
+        mAdapter.SetOnHeaderClickListener((view, headerTitle) -> {
 
-        mAdapter.SetOnHeaderClickListener(new RecyclerViewAdapter.OnHeaderClickListener() {
-            @Override
-            public void onHeaderClick(View view, String headerTitle) {
+            //handle item click events here
 
-                //handle item click events here
-                Toast.makeText(DoctorActivity.this, "Hey I am a header", Toast.LENGTH_SHORT).show();
-
-            }
         });
-
 
     }
-
-
 }
