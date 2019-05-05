@@ -21,7 +21,7 @@ public class DiseasePredictionSuccess extends TextWithButtonsActivity {
 
     //TODO : Read Bundle Value, substitute if it is null
     String disease = "XYZ";
-    String predictedDisease;
+    String passedDisease;
 
     boolean myLocationFlag = false;
     LocationUtils locationUtils = new LocationUtils();
@@ -30,12 +30,12 @@ public class DiseasePredictionSuccess extends TextWithButtonsActivity {
     protected String configureTextViewFirstText() {
 
         //TODO : To Bundle Utils with default value
-        predictedDisease = getIntent().getStringExtra("passedDoctor");
-        if (predictedDisease == null) {
-            predictedDisease = disease;
+        passedDisease = getIntent().getStringExtra("disease");
+        if (passedDisease == null) {
+            passedDisease = disease;
         }
 
-        return "Your Disease is " + predictedDisease;
+        return "Your Disease is " + passedDisease;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class DiseasePredictionSuccess extends TextWithButtonsActivity {
                         //Got the location!
                         LogUtilsWrapper.debug(location.toString());
                         ProgressBar_Utils.showProgress(false, activity_context, progressBar, scrollView);
-                        ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, DoctorActivity.class, new Pair[]{new Pair<>("doctor", predictedDisease), new Pair<>("longitude", location.getLongitude()), new Pair<>("latitude", location.getLatitude())}, false, 0);
+                        ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, DoctorActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("longitude", location.getLongitude()), new Pair<>("latitude", location.getLatitude())}, false, 0);
                     }
                 };
                 if (locationUtils.getLocation(activity_context, locationResult)) {

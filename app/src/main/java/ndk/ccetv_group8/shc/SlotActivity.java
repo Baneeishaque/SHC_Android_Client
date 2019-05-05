@@ -10,29 +10,35 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.util.Pair;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.sql.Time;
 import java.util.ArrayList;
 
 import ndk.ccetv_group8.shc.models.ConsultationSlot;
+import ndk.utils_android14.ContextActivity;
 
-public class SlotActivity extends AppCompatActivity {
+public class SlotActivity extends ContextActivity {
 
+    String disease = "XYZ";
+    String passedDisease;
     String doctor = "XYZ";
     String passedDoctor;
+
     TextView textViewSelectedConsultationSlot;
     private RecyclerView recyclerView;
     private Toolbar toolbar;
+
     private ConsultationSlotRecyclerViewAdapter mAdapter;
     private ArrayList<ConsultationSlot> modelList = new ArrayList<>();
+
+    String selectedSlot;
+    Button buttonSubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,23 +47,34 @@ public class SlotActivity extends AppCompatActivity {
 
         textViewSelectedConsultationSlot = findViewById(R.id.textViewSelectedConsultationSlot);
 
-        passedDoctor = getIntent().getStringExtra("Doctor");
+        passedDisease = getIntent().getStringExtra("disease");
+        if (passedDisease == null) {
+            passedDisease = disease;
+        }
+
+        passedDoctor = getIntent().getStringExtra("doctor");
         if (passedDoctor == null) {
             passedDoctor = doctor;
         }
 
         TextView textViewDisease = findViewById(R.id.textViewDisease);
-        textViewDisease.setText(getResources().getString(R.string.doctorWithFullColumn) + passedDoctor);
+        textViewDisease.setText("Disease : " + passedDisease);
+
+        TextView textViewDoctor = findViewById(R.id.textViewDoctor);
+        textViewDoctor.setText("Doctor : " + passedDoctor);
 
         findViews();
         setSupportActionBar(toolbar);
         setAdapter();
 
-        Button buttonSubmit = findViewById(R.id.buttonSubmit);
+        buttonSubmit = findViewById(R.id.buttonSubmit);
+        buttonSubmit.setEnabled(false);
+
         Button buttonDoctors = findViewById(R.id.buttonDoctors);
 
         buttonDoctors.setOnClickListener(ButtonUtils.getBackButtonEvent(this));
-        buttonSubmit.setOnClickListener(ButtonUtils.getStartActivityWithFinishButtonEvent(this, SlotConfirmationActivity.class, ApplicationConstants.APPLICATION_NAME));
+
+        buttonSubmit.setOnClickListener(ButtonUtils.getButtonEvent(() -> ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, SlotConfirmationActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctor", passedDoctor), new Pair<>("slot", selectedSlot)}, false, 0)));
     }
 
     private void findViews() {
@@ -84,7 +101,7 @@ public class SlotActivity extends AppCompatActivity {
         searchEdit.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
         searchEdit.setHintTextColor(Color.WHITE);
         searchEdit.setBackgroundColor(Color.TRANSPARENT);
-        searchEdit.setHint("Search");
+        searchEdit.setHint("Search Slots");
 
         InputFilter[] fArray = new InputFilter[2];
         fArray[0] = new InputFilter.LengthFilter(40);
@@ -144,8 +161,10 @@ public class SlotActivity extends AppCompatActivity {
 
 //        modelList.add(new Doctor(1, "Doctor", "Address", "Designation", "Working Hospital", "Certificate ID", "Working Clinic", new Time(0), new Time(0), 500.0));
 
-        modelList.add(new ConsultationSlot(new Time(0), new Time(0)));
-        mAdapter = new ConsultationSlotRecyclerViewAdapter(SlotActivity.this, modelList, "Time Slots");
+        modelList.add(new ConsultationSlot("9 AM", "10 AM"));
+        modelList.add(new ConsultationSlot("11 AM", "12 PM"));
+        modelList.add(new ConsultationSlot("3 PM", "4 PM"));
+        mAdapter = new ConsultationSlotRecyclerViewAdapter(activity_context, modelList, "Time Slots");
 
         recyclerView.setHasFixedSize(true);
 
@@ -156,8 +175,11 @@ public class SlotActivity extends AppCompatActivity {
 
         mAdapter.SetOnItemClickListener((view, position, model) -> {
             //handle item click events here
-            Toast.makeText(SlotActivity.this, "Hey " + model.getSlotStart(), Toast.LENGTH_SHORT).show();
-            textViewSelectedConsultationSlot.setText("You are selected " + model.getSlotStart() + " to " + model.getSlotEnd());
+//            Toast.makeText(SlotActivity.this, "Hey " + model.getSlotStart(), Toast.LENGTH_SHORT).show();
+            textViewSelectedConsultationSlot.setText("You are selected : " + model.getSlotStart() + " to " + model.getSlotEnd());
+            String textViewSelectedConsultationSlotData = textViewSelectedConsultationSlot.getText().toString();
+            selectedSlot = textViewSelectedConsultationSlotData.substring(textViewSelectedConsultationSlotData.lastIndexOf(":") + 2);
+            buttonSubmit.setEnabled(true);
         });
 
         mAdapter.SetOnHeaderClickListener((view, headerTitle) -> {

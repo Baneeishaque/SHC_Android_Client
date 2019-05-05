@@ -15,10 +15,34 @@ import ndk.utils_android16.Snackbar_Utils;
 
 public class PaymentActivity extends ContextActivity {
 
+    String doctor = "XYZ";
+    String passedDoctor;
+
+    String disease = "XYZ";
+    String passedDisease;
+
+    String slot = "5 AM to 6 AM";
+    String passedSlot;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+
+        passedDisease = getIntent().getStringExtra("disease");
+        if (passedDisease == null) {
+            passedDisease = disease;
+        }
+
+        passedDoctor = getIntent().getStringExtra("doctor");
+        if (passedDoctor == null) {
+            passedDoctor = doctor;
+        }
+
+        passedSlot = getIntent().getStringExtra("slot");
+        if (passedSlot == null) {
+            passedSlot = slot;
+        }
 
         WebView wv = findViewById(R.id.webView);
         wv.loadUrl("file:///android_asset/paymentPage.html");
@@ -38,15 +62,15 @@ public class PaymentActivity extends ContextActivity {
 //                }
                 int transactionID = new Random().nextInt(1000);
                 new Alert_Dialog_Utils((dialog, which) -> {
+                    ndk.utils_android14.ActivityUtils.start_activity_with_string_extras_and_finish(activity_context, SubmitDetailsActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctor", passedDoctor), new Pair<>("slot", passedSlot), new Pair<>("transactionID", String.valueOf(transactionID))});
                 }, (dialog, which) -> {
                 }).titled_OK_Dialogue(activity_context, "Your Transaction ID is " + transactionID + ", Please Keep it for further queries.", "Payment Success!", false);
-                ndk.utils_android14.ActivityUtils.start_activity_with_string_extras_and_finish(activity_context, SubmitDetailsActivity.class, new Pair[]{new Pair<>("transactionID", String.valueOf(transactionID))});
             }
         }), "Success");
 
         wv.addJavascriptInterface(new WebAppInterface(this, () -> {
             Snackbar_Utils.display_Short_no_FAB_error_bottom_SnackBar(activity_context, "Failure");
-            ActivityUtils.start_activity_with_string_extras_and_finish(activity_context, SlotConfirmationActivity.class, new Pair[]{new Pair<>("payment", "Failure")});
+            ActivityUtils.start_activity_with_string_extras_and_finish(activity_context, SlotConfirmationActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctor", passedDoctor), new Pair<>("slot", passedSlot), new Pair<>("payment", "Failure")});
         }), "Failure");
     }
 }

@@ -8,19 +8,17 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.util.Pair;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.sql.Time;
 import java.util.ArrayList;
 
 import ndk.ccetv_group8.shc.models.Doctor;
-import ndk.utils_android1.ActivityUtils;
 import ndk.utils_android14.ContextActivity;
 
 public class DoctorActivity extends ContextActivity {
@@ -30,6 +28,7 @@ public class DoctorActivity extends ContextActivity {
 
     String disease = "XYZ";
     String passedDisease;
+
     private DoctorRecyclerViewAdapter mAdapter;
     private ArrayList<Doctor> modelList = new ArrayList<>();
 
@@ -38,13 +37,13 @@ public class DoctorActivity extends ContextActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor);
 
-        passedDisease = getIntent().getStringExtra("Disease");
+        passedDisease = getIntent().getStringExtra("disease");
         if (passedDisease == null) {
             passedDisease = disease;
         }
 
         TextView textViewDisease = findViewById(R.id.textViewDisease);
-        textViewDisease.setText(getResources().getString(R.string.diseaseWithFullColumn) + passedDisease);
+        textViewDisease.setText("Disease : " + passedDisease);
 
         findViews();
         setSupportActionBar(toolbar);
@@ -74,7 +73,7 @@ public class DoctorActivity extends ContextActivity {
         searchEdit.setTextColor(Color.WHITE);
         searchEdit.setHintTextColor(Color.WHITE);
         searchEdit.setBackgroundColor(Color.TRANSPARENT);
-        searchEdit.setHint("Search");
+        searchEdit.setHint("Search Doctors");
 
         InputFilter[] fArray = new InputFilter[2];
         fArray[0] = new InputFilter.LengthFilter(40);
@@ -132,7 +131,11 @@ public class DoctorActivity extends ContextActivity {
 //        modelList.add(new AbstractModel("Nougat", "Hello " + " Nougat"));
 //        modelList.add(new AbstractModel("Android O", "Hello " + " Android O"));
 
-        modelList.add(new Doctor(1, "Doctor", "Address", "Designation", "Working Hospital", "Certificate ID", "Working Clinic", new Time(0), new Time(0), 500.0));
+        modelList.add(new Doctor(1, "Doctor 1", "Doctor 1 Address", "Doctor 1 Designation", "Doctor 1 Working Hospital", "Doctor 1 Certificate ID", "Doctor 1 Working Clinic", "9 AM", "4 PM", 500.0));
+
+        modelList.add(new Doctor(2, "Doctor 2", "Doctor 2 Address", "Doctor 2 Designation", "Doctor 2 Working Hospital", "Doctor 2 Certificate ID", "Doctor 2 Working Clinic", "11 AM", "4 PM", 500.0));
+
+        modelList.add(new Doctor(3, "Doctor 3", "Doctor 3 Address", "Doctor 3 Designation", "Doctor 3 Working Hospital", "Doctor 3 Certificate ID", "Doctor 3 Working Clinic", "2 PM", "4 PM", 500.0));
 
         mAdapter = new DoctorRecyclerViewAdapter(DoctorActivity.this, modelList, "Doctors");
 
@@ -145,8 +148,8 @@ public class DoctorActivity extends ContextActivity {
 
         mAdapter.SetOnItemClickListener((view, position, model) -> {
             //handle item click events here
-            Toast.makeText(DoctorActivity.this, "Hey " + model.getName(), Toast.LENGTH_SHORT).show();
-            ActivityUtils.start_activity(activity_context, SlotActivity.class);
+//            Toast.makeText(DoctorActivity.this, "Hey " + model.getName(), Toast.LENGTH_SHORT).show();
+            ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, SlotActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctor", model.getName())}, false, 0);
         });
 
         mAdapter.SetOnHeaderClickListener((view, headerTitle) -> {

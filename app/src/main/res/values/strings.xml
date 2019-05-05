@@ -23,7 +23,7 @@
     <string name="serverAddress">http://192.168.43.89:5000</string>
     <string name="serverConfiguration">Server Configuration</string>
     <string name="title_activity_doctor">DoctorActivity</string>
-    <string name="doctors">Doctors</string>
+    <string name="doctors">Available Doctors</string>
     <string name="disease">Disease</string>
     <string name="diseaseWithFullColumn">Disease : </string>
     <string name="doctor_avatar">Doctor Avatar</string>
@@ -37,5 +37,5 @@
     <string name="back_to_slots">Back to Slots</string>
     <string name="payment">Payment Please…</string>
     <string name="results">Results</string>
-    <string name="slots">Slots</string>
+    <string name="slots">Available Slots</string>
 </resources>

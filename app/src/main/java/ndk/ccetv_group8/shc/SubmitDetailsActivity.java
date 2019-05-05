@@ -25,22 +25,25 @@ public class SubmitDetailsActivity extends ContextActivity {
     String slot = "5 AM to 6 AM";
     String passedSlot;
 
+    String transactionID = "121";
+    String passedTransactionID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit_details);
 
-        passedDisease = getIntent().getStringExtra("Disease");
+        passedDisease = getIntent().getStringExtra("disease");
         if (passedDisease == null) {
             passedDisease = disease;
         }
 
-        passedDoctor = getIntent().getStringExtra("Doctor");
+        passedDoctor = getIntent().getStringExtra("doctor");
         if (passedDoctor == null) {
             passedDoctor = doctor;
         }
 
-        passedSlot = getIntent().getStringExtra("Slot");
+        passedSlot = getIntent().getStringExtra("slot");
         if (passedSlot == null) {
             passedSlot = slot;
         }
@@ -48,8 +51,11 @@ public class SubmitDetailsActivity extends ContextActivity {
         TextView textViewTransactionID = null;
         if (getIntent().getExtras() != null) {
             if (getIntent().getStringExtra("transactionID") != null) {
+                passedTransactionID = getIntent().getStringExtra("transactionID");
                 textViewTransactionID = findViewById(R.id.textViewTransactionID);
-                textViewTransactionID.setText("TransactionID : " + getIntent().getStringExtra("transactionID"));
+                textViewTransactionID.setText("TransactionID : " + passedTransactionID);
+            } else {
+                passedTransactionID = transactionID;
             }
         }
 
@@ -67,16 +73,15 @@ public class SubmitDetailsActivity extends ContextActivity {
         EditText editTextContactNumber = findViewById(R.id.editTextContactNumber);
 
         Button buttonSubmit = findViewById(R.id.buttonSubmit);
-        TextView finalTextViewTransactionID = textViewTransactionID;
         buttonSubmit.setOnClickListener(ButtonUtils.getButtonEvent(() -> {
             boolean result = Objects.requireNonNull(Validation_Utils.empty_check(new Pair[]{new Pair<>(editTextName, "Enter Name..."), new Pair<>(editTextAddress, "Enter Address..."), new Pair<>(editTextContactNumber, "Enter Contact Number...")}).first);
             if (!result) {
                 new Alert_Dialog_Utils((dialog, which) -> {
                     buttonSubmit.setVisibility(View.INVISIBLE);
                     new Alert_Dialog_Utils((dialog1, which1) -> ndk.utils_android14.ActivityUtils.start_activity_with_finish(activity_context, SymptomsActivity.class, ApplicationConstants.APPLICATION_NAME), (dialog12, which12) -> {
-                    }).titled_OK_Dialogue(activity_context, "Name : " + editTextName.getText().toString() + "\n" + "Address : " + editTextAddress.getText().toString() + "\n" + "Contact Number : " + editTextContactNumber.getText().toString() + "\n\n" + "Disease : " + passedDisease + "\n" + "Doctor : " + passedDoctor + "\n" + "Slot : " + passedSlot + "\n" + "TransactionID : " + (finalTextViewTransactionID != null ? finalTextViewTransactionID.getText().toString() : null) + "\n\n" + "Please Keep These Things...", "Caution", false);
+                    }).titled_OK_Dialogue(activity_context, "Name : " + editTextName.getText().toString() + "\n" + "Address : " + editTextAddress.getText().toString() + "\n" + "Contact Number : " + editTextContactNumber.getText().toString() + "\n\n" + "Disease : " + passedDisease + "\n" + "Doctor : " + passedDoctor + "\n" + "Slot : " + passedSlot + "\n" + "TransactionID : " + passedTransactionID + "\n\n" + "Please Keep These Things...", "Caution", false);
                 }, (dialog, which) -> {
-                }).titled_Yes_No_Dialogue(activity_context, "Name : " + editTextName.getText().toString() + "\n" + "Address : " + editTextAddress.getText().toString() + "\n" + "Contact Number : " + editTextContactNumber.getText().toString() + "\n\n" + "Disease : " + passedDisease + "\n" + "Doctor : " + passedDoctor + "\n" + "Slot : " + passedSlot + "\n" + "TransactionID : " + (finalTextViewTransactionID != null ? finalTextViewTransactionID.getText().toString() : null), "Confirmation", true);
+                }).titled_Yes_No_Dialogue(activity_context, "Name : " + editTextName.getText().toString() + "\n" + "Address : " + editTextAddress.getText().toString() + "\n" + "Contact Number : " + editTextContactNumber.getText().toString() + "\n\n" + "Disease : " + passedDisease + "\n" + "Doctor : " + passedDoctor + "\n" + "Slot : " + passedSlot + "\n" + "TransactionID : " + passedTransactionID, "Confirmation", true);
             }
         }));
     }

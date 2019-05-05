@@ -63,7 +63,7 @@ public class LocationUtils {
         try {
             gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
             if (!gps_enabled) {
-                Snackbar_Utils.display_Short_no_FAB_error_bottom_SnackBar(context, "Please Enable GPS.");
+                Snackbar_Utils.display_Short_no_FAB_error_bottom_SnackBar(context, "Please Enable GPS for better doctor search results.");
                 return false;
             }
         } catch (Exception ex) {

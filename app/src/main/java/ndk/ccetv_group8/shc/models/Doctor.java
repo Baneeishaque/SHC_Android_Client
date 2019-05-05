@@ -1,14 +1,12 @@
 package ndk.ccetv_group8.shc.models;
 
-import java.sql.Time;
-
 public class Doctor {
     private int id;
     private String name, address, designation, workingHospital, certificateID, workingClinic;
-    private Time availableTimeStart, availableTimeEnd;
+    private String availableTimeStart, availableTimeEnd;
     private Double consultationFee;
 
-    public Doctor(int id, String name, String address, String designation, String workingHospital, String certificateID, String workingClinic, Time availableTimeStart, Time availableTimeEnd, Double consultationFee) {
+    public Doctor(int id, String name, String address, String designation, String workingHospital, String certificateID, String workingClinic, String availableTimeStart, String availableTimeEnd, Double consultationFee) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -77,19 +75,19 @@ public class Doctor {
         this.workingClinic = workingClinic;
     }
 
-    public Time getAvailableTimeStart() {
+    public String getAvailableTimeStart() {
         return availableTimeStart;
     }
 
-    public void setAvailableTimeStart(Time availableTimeStart) {
+    public void setAvailableTimeStart(String availableTimeStart) {
         this.availableTimeStart = availableTimeStart;
     }
 
-    public Time getAvailableTimeEnd() {
+    public String getAvailableTimeEnd() {
         return availableTimeEnd;
     }
 
-    public void setAvailableTimeEnd(Time availableTimeEnd) {
+    public void setAvailableTimeEnd(String availableTimeEnd) {
         this.availableTimeEnd = availableTimeEnd;
     }
 

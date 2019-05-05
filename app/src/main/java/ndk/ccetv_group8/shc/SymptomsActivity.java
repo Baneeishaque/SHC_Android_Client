@@ -2,6 +2,8 @@ package ndk.ccetv_group8.shc;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -24,11 +26,11 @@ import java.util.List;
 import cn.refactor.kmpautotextview.KMPAutoComplTextView;
 import ndk.ccetv_group8.shc.models.TagClass;
 import ndk.utils_android14.ActivityUtils;
-import ndk.utils_android14.ContextActivity;
 import ndk.utils_android16.Alert_Dialog_Utils;
 import ndk.utils_android16.Toast_Utils;
+import ndk.utils_android16.activities.Options_Item_Selected_TODO_Activity;
 
-public class SymptomsActivity extends ContextActivity {
+public class SymptomsActivity extends Options_Item_Selected_TODO_Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,10 +187,25 @@ public class SymptomsActivity extends ContextActivity {
                     ActivityUtils.start_activity(activity_context, DiseasePredictionFailureNoMatch.class);
                 } else {
                     Toast_Utils.longToast(getApplicationContext(), "Disease : " + StringUtils.removeQuotations(response));
-                    ActivityUtils.start_activity_with_string_extras(activity_context, DiseasePredictionSuccess.class, new Pair[]{new Pair<>("passedDoctor", predictedDisease)}, false, 0);
+                    ActivityUtils.start_activity_with_string_extras(activity_context, DiseasePredictionSuccess.class, new Pair[]{new Pair<>("disease", predictedDisease)}, false, 0);
                 }
             });
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_symptoms, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menuItemAppointments) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //TODO : To tagview Utils - removeTagWithEvaluation of components

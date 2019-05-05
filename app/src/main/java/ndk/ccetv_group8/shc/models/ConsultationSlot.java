@@ -1,28 +1,26 @@
 package ndk.ccetv_group8.shc.models;
 
-import java.sql.Time;
-
 public class ConsultationSlot {
-    private Time slotStart, slotEnd;
+    private String slotStart, slotEnd;
 
-    public ConsultationSlot(Time slotStart, Time slotEnd) {
+    public ConsultationSlot(String slotStart, String slotEnd) {
         this.slotStart = slotStart;
         this.slotEnd = slotEnd;
     }
 
-    public Time getSlotStart() {
+    public String getSlotStart() {
         return slotStart;
     }
 
-    public void setSlotStart(Time slotStart) {
+    public void setSlotStart(String slotStart) {
         this.slotStart = slotStart;
     }
 
-    public Time getSlotEnd() {
+    public String getSlotEnd() {
         return slotEnd;
     }
 
-    public void setSlotEnd(Time slotEnd) {
+    public void setSlotEnd(String slotEnd) {
         this.slotEnd = slotEnd;
     }
 }
