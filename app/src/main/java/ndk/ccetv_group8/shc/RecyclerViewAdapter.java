@@ -115,7 +115,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         public HeaderViewHolder(final View itemView) {
             super(itemView);
-            this.txtTitleHeader = itemView.findViewById(R.id.txt_header);
+            this.txtTitleHeader = itemView.findViewById(R.id.textViewHeader);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

@@ -23,4 +23,5 @@
     <string name="serverAddress">http://192.168.43.89:5000</string>
     <string name="serverConfiguration">Server Configuration</string>
     <string name="title_activity_doctor">DoctorActivity</string>
+    <string name="doctors">Doctors</string>
 </resources>
