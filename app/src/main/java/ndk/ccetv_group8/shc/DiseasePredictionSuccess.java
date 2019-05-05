@@ -1,11 +1,7 @@
 package ndk.ccetv_group8.shc;
 
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -27,11 +23,14 @@ public class DiseasePredictionSuccess extends TextWithButtonsActivity {
     String disease = "XYZ";
     String predictedDisease;
 
+    boolean myLocationFlag = false;
+    LocationUtils locationUtils = new LocationUtils();
+
     @Override
     protected String configureTextViewFirstText() {
 
         //TODO : To Bundle Utils with default value
-        predictedDisease = getIntent().getStringExtra("passedDisease");
+        predictedDisease = getIntent().getStringExtra("passedDoctor");
         if (predictedDisease == null) {
             predictedDisease = disease;
         }
@@ -41,45 +40,35 @@ public class DiseasePredictionSuccess extends TextWithButtonsActivity {
 
     @Override
     protected Pair[] configureButtonsWithClickEvents() {
-        return new Pair[]{new Pair<>(getResources().getString(R.string.proceed), ButtonUtils.getButtonEvent(new ButtonUtils.FurtherActions() {
-            @Override
-            public void configureFurtherActions() {
-//                startNextActivityWithLocation();
-                ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, DoctorActivity.class, new Pair[]{new Pair<>("disease", predictedDisease)}, false, 0);
+        return new Pair[]{new Pair<>(getResources().getString(R.string.proceed), ButtonUtils.getButtonEvent(() -> {
+
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), ACCESS_FINE_LOCATION) != 0) {
+                ActivityCompat.requestPermissions((AppCompatActivity) activity_context, new String[]{ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_CODE);
+            } else {
+                LocationUtils.LocationResult locationResult = new LocationUtils.LocationResult() {
+                    @Override
+                    public void gotLocation(Location location) {
+                        //Got the location!
+                        LogUtilsWrapper.debug(location.toString());
+                        ProgressBar_Utils.showProgress(false, activity_context, progressBar, scrollView);
+                        ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, DoctorActivity.class, new Pair[]{new Pair<>("doctor", predictedDisease), new Pair<>("longitude", location.getLongitude()), new Pair<>("latitude", location.getLatitude())}, false, 0);
+                    }
+                };
+                if (locationUtils.getLocation(activity_context, locationResult)) {
+                    myLocationFlag = true;
+                    ProgressBar_Utils.showProgress(true, activity_context, progressBar, scrollView);
+                }
 
             }
         })), new Pair<>(getResources().getString(R.string.try_again), ButtonUtils.getBackButtonEvent(this)), new Pair<>(getResources().getString(R.string.no_thanks), ButtonUtils.getButtonEvent(() -> ActivityUtils.toHomeActivityWithConfirmation(activity_context)))};
     }
 
-    private void startNextActivityWithLocation() {
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), ACCESS_FINE_LOCATION) != 0) {
-            ActivityCompat.requestPermissions((AppCompatActivity) activity_context, new String[]{ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_CODE);
-        } else {
-            ProgressBar_Utils.showProgress(true, activity_context, progressBar, scrollView);
-            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
-                @Override
-                public void onLocationChanged(Location location) {
-                    ProgressBar_Utils.showProgress(false, activity_context, progressBar, scrollView);
-                    ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, DoctorActivity.class, new Pair[]{new Pair<>("disease", predictedDisease), new Pair<>("longitude", location.getLongitude()), new Pair<>("latitude", location.getLatitude())}, false, 0);
-                }
-
-                @Override
-                public void onStatusChanged(String provider, int status, Bundle extras) {
-
-                }
-
-                @Override
-                public void onProviderEnabled(String provider) {
-
-                }
-
-                @Override
-                public void onProviderDisabled(String provider) {
-//                    Snackbar_Utils.display_Short_no_FAB_error_bottom_SnackBar(activity_context, "Please allow GPS for better doctor search results.");
-                }
-            });
+    @Override
+    protected void onPause() {
+        if (myLocationFlag) {
+            locationUtils.cancelTimer();
         }
+        super.onPause();
     }
 
     @Override
@@ -91,14 +80,10 @@ public class DiseasePredictionSuccess extends TextWithButtonsActivity {
 
                 if (locationAccepted) {
                     Snackbar_Utils.display_Short_no_FAB_success_bottom_SnackBar(activity_context, "Permission Granted, Thanks.");
-//                    startNextActivityWithLocation();
-                    ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, DoctorActivity.class, new Pair[]{new Pair<>("disease", predictedDisease)}, false, 0);
-
                 } else {
                     Snackbar_Utils.display_Short_no_FAB_error_bottom_SnackBar(activity_context, "Please allow location access for better doctor search results.");
                 }
             }
         }
     }
-
 }

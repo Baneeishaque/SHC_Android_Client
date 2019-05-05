@@ -30,4 +30,12 @@
     <string name="at_working_clinic">At Working Clinic</string>
     <string name="on_12_am_to_5_pm">On 12 AM to 5 PM</string>
     <string name="rs_500">Rs. 500</string>
+    <string name="_11_am_to_5_pm">11 AM to 5 PM</string>
+    <string name="doctorWithFullColumn">Doctor :</string>
+    <string name="you_are_selected_5am_to_6am">You are selected 5am to 6am</string>
+    <string name="back_to_doctors">Back to Doctors</string>
+    <string name="back_to_slots">Back to Slots</string>
+    <string name="payment">Payment Please…</string>
+    <string name="results">Results</string>
+    <string name="slots">Slots</string>
 </resources>

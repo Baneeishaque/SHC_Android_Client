@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.Menu;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
@@ -19,36 +22,42 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.sql.Time;
 import java.util.ArrayList;
 
-import ndk.ccetv_group8.shc.models.Doctor;
-import ndk.utils_android1.ActivityUtils;
-import ndk.utils_android14.ContextActivity;
+import ndk.ccetv_group8.shc.models.ConsultationSlot;
 
-public class DoctorActivity extends ContextActivity {
+public class SlotActivity extends AppCompatActivity {
 
+    String doctor = "XYZ";
+    String passedDoctor;
+    TextView textViewSelectedConsultationSlot;
     private RecyclerView recyclerView;
     private Toolbar toolbar;
-
-    String disease = "XYZ";
-    String passedDisease;
-    private DoctorRecyclerViewAdapter mAdapter;
-    private ArrayList<Doctor> modelList = new ArrayList<>();
+    private ConsultationSlotRecyclerViewAdapter mAdapter;
+    private ArrayList<ConsultationSlot> modelList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_doctor);
+        setContentView(R.layout.activity_consultation_slot);
 
-        passedDisease = getIntent().getStringExtra("Disease");
-        if (passedDisease == null) {
-            passedDisease = disease;
+        textViewSelectedConsultationSlot = findViewById(R.id.textViewSelectedConsultationSlot);
+
+        passedDoctor = getIntent().getStringExtra("Doctor");
+        if (passedDoctor == null) {
+            passedDoctor = doctor;
         }
 
         TextView textViewDisease = findViewById(R.id.textViewDisease);
-        textViewDisease.setText(getResources().getString(R.string.diseaseWithFullColumn) + passedDisease);
+        textViewDisease.setText(getResources().getString(R.string.doctorWithFullColumn) + passedDoctor);
 
         findViews();
         setSupportActionBar(toolbar);
         setAdapter();
+
+        Button buttonSubmit = findViewById(R.id.buttonSubmit);
+        Button buttonDoctors = findViewById(R.id.buttonDoctors);
+
+        buttonDoctors.setOnClickListener(ButtonUtils.getBackButtonEvent(this));
+        buttonSubmit.setOnClickListener(ButtonUtils.getStartActivityWithFinishButtonEvent(this, SlotConfirmationActivity.class, ApplicationConstants.APPLICATION_NAME));
     }
 
     private void findViews() {
@@ -72,6 +81,7 @@ public class DoctorActivity extends ContextActivity {
         //changing editText color
         EditText searchEdit = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
         searchEdit.setTextColor(Color.WHITE);
+        searchEdit.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
         searchEdit.setHintTextColor(Color.WHITE);
         searchEdit.setBackgroundColor(Color.TRANSPARENT);
         searchEdit.setHint("Search");
@@ -97,10 +107,10 @@ public class DoctorActivity extends ContextActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                ArrayList<Doctor> filterList = new ArrayList<Doctor>();
+                ArrayList<ConsultationSlot> filterList = new ArrayList<ConsultationSlot>();
                 if (s.length() > 0) {
                     for (int i = 0; i < modelList.size(); i++) {
-                        if (modelList.get(i).getName().toLowerCase().contains(s.toLowerCase())) {
+                        if (String.valueOf(modelList.get(i).getSlotStart()).toLowerCase().contains(s.toLowerCase()) || String.valueOf(modelList.get(i).getSlotEnd()).toLowerCase().contains(s.toLowerCase())) {
                             filterList.add(modelList.get(i));
                             mAdapter.updateList(filterList);
                         }
@@ -132,9 +142,10 @@ public class DoctorActivity extends ContextActivity {
 //        modelList.add(new AbstractModel("Nougat", "Hello " + " Nougat"));
 //        modelList.add(new AbstractModel("Android O", "Hello " + " Android O"));
 
-        modelList.add(new Doctor(1, "Doctor", "Address", "Designation", "Working Hospital", "Certificate ID", "Working Clinic", new Time(0), new Time(0), 500.0));
+//        modelList.add(new Doctor(1, "Doctor", "Address", "Designation", "Working Hospital", "Certificate ID", "Working Clinic", new Time(0), new Time(0), 500.0));
 
-        mAdapter = new DoctorRecyclerViewAdapter(DoctorActivity.this, modelList, "Doctors");
+        modelList.add(new ConsultationSlot(new Time(0), new Time(0)));
+        mAdapter = new ConsultationSlotRecyclerViewAdapter(SlotActivity.this, modelList, "Time Slots");
 
         recyclerView.setHasFixedSize(true);
 
@@ -145,8 +156,8 @@ public class DoctorActivity extends ContextActivity {
 
         mAdapter.SetOnItemClickListener((view, position, model) -> {
             //handle item click events here
-            Toast.makeText(DoctorActivity.this, "Hey " + model.getName(), Toast.LENGTH_SHORT).show();
-            ActivityUtils.start_activity(activity_context, SlotActivity.class);
+            Toast.makeText(SlotActivity.this, "Hey " + model.getSlotStart(), Toast.LENGTH_SHORT).show();
+            textViewSelectedConsultationSlot.setText("You are selected " + model.getSlotStart() + " to " + model.getSlotEnd());
         });
 
         mAdapter.SetOnHeaderClickListener((view, headerTitle) -> {

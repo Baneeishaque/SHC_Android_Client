@@ -12,26 +12,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".ActivityServerConfiguration"
-            android:label="@string/serverConfiguration">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SubmitDetailsActivity" />
+        <activity
+            android:name=".PaymentActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity android:name=".SlotConfirmationActivity" />
         <activity
             android:name=".SplashActivity"
-            android:label="Splash"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity android:name=".D5" />
         <activity android:name=".D4" />
         <activity android:name=".DISEASE3" />
@@ -54,90 +50,26 @@
         <activity android:name=".PATIENT1" />
         <activity android:name=".TERMS" />
         <activity android:name=".IntroductionActivity" />
-        <activity
-            android:name=".LaunchersActivity"
-            android:label="Launchers">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".SymptomsActivity"
-            android:label="@string/app_full_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".DiseasePredictionFailureNoMatch"
-            android:label="@string/no_match">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".DiseasePredictionFailureNeedMoreSymptoms"
-            android:label="@string/more_symptoms_title">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".LaunchersActivity" />
+        <activity android:name=".SymptomsActivity" />
+        <activity android:name=".DiseasePredictionFailureNoMatch" />
+        <activity android:name=".DiseasePredictionFailureNeedMoreSymptoms" />
         <activity android:name=".DoctorHomeActivity" />
-        <activity android:name=".DiseasePredictionSuccess" />
         <activity
-            android:name=".Main2Activity"
-            android:label="Main2Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".LoginPageActivity"
-            android:label="LoginPageActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".FirstPageActivity"
-            android:label="FirstPageActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".MainActivity"
-            android:label="MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".DiseasePredictionSuccess"
+            android:label="@string/results" />
+        <activity android:name=".Main2Activity" />
+        <activity android:name=".LoginPageActivity" />
+        <activity android:name=".FirstPageActivity" />
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".DoctorActivity"
-            android:label="@string/title_activity_doctor"
-            android:theme="@style/AppTheme.Template.Base">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:label="@string/doctors"
+            android:theme="@style/AppTheme.Template.Base" />
+        <activity
+            android:name=".SlotActivity"
+            android:label="@string/slots"
+            android:theme="@style/AppTheme.Template.Base" />
     </application>
 
 </manifest>

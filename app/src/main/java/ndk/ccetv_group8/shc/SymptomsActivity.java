@@ -185,7 +185,7 @@ public class SymptomsActivity extends ContextActivity {
                     ActivityUtils.start_activity(activity_context, DiseasePredictionFailureNoMatch.class);
                 } else {
                     Toast_Utils.longToast(getApplicationContext(), "Disease : " + StringUtils.removeQuotations(response));
-                    ActivityUtils.start_activity_with_string_extras(activity_context, DiseasePredictionSuccess.class, new Pair[]{new Pair<>("passedDisease", predictedDisease)}, false, 0);
+                    ActivityUtils.start_activity_with_string_extras(activity_context, DiseasePredictionSuccess.class, new Pair[]{new Pair<>("passedDoctor", predictedDisease)}, false, 0);
                 }
             });
         });
