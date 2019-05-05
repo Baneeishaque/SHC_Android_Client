@@ -7,6 +7,7 @@ import android.text.InputFilter;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,20 +17,33 @@ import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.sql.Time;
 import java.util.ArrayList;
+
+import ndk.ccetv_group8.shc.models.Doctor;
 
 public class DoctorActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private Toolbar toolbar;
 
-    private RecyclerViewAdapter mAdapter;
-    private ArrayList<AbstractModel> modelList = new ArrayList<>();
+    String disease = "XYZ";
+    String passedDisease;
+    private DoctorRecyclerViewAdapter mAdapter;
+    private ArrayList<Doctor> modelList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor);
+
+        passedDisease = getIntent().getStringExtra("Disease");
+        if (passedDisease == null) {
+            passedDisease = disease;
+        }
+
+        TextView textViewDisease = findViewById(R.id.textViewDisease);
+        textViewDisease.setText(getResources().getString(R.string.diseaseWithFullColumn) + passedDisease);
 
         findViews();
         setSupportActionBar(toolbar);
@@ -82,10 +96,10 @@ public class DoctorActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                ArrayList<AbstractModel> filterList = new ArrayList<AbstractModel>();
+                ArrayList<Doctor> filterList = new ArrayList<Doctor>();
                 if (s.length() > 0) {
                     for (int i = 0; i < modelList.size(); i++) {
-                        if (modelList.get(i).getTitle().toLowerCase().contains(s.toLowerCase())) {
+                        if (modelList.get(i).getName().toLowerCase().contains(s.toLowerCase())) {
                             filterList.add(modelList.get(i));
                             mAdapter.updateList(filterList);
                         }
@@ -101,23 +115,25 @@ public class DoctorActivity extends AppCompatActivity {
 
     private void setAdapter() {
 
-        modelList.add(new AbstractModel("Android", "Hello " + " Android"));
-        modelList.add(new AbstractModel("Beta", "Hello " + " Beta"));
-        modelList.add(new AbstractModel("Cupcake", "Hello " + " Cupcake"));
-        modelList.add(new AbstractModel("Donut", "Hello " + " Donut"));
-        modelList.add(new AbstractModel("Eclair", "Hello " + " Eclair"));
-        modelList.add(new AbstractModel("Froyo", "Hello " + " Froyo"));
-        modelList.add(new AbstractModel("Gingerbread", "Hello " + " Gingerbread"));
-        modelList.add(new AbstractModel("Honeycomb", "Hello " + " Honeycomb"));
-        modelList.add(new AbstractModel("Ice Cream Sandwich", "Hello " + " Ice Cream Sandwich"));
-        modelList.add(new AbstractModel("Jelly Bean", "Hello " + " Jelly Bean"));
-        modelList.add(new AbstractModel("KitKat", "Hello " + " KitKat"));
-        modelList.add(new AbstractModel("Lollipop", "Hello " + " Lollipop"));
-        modelList.add(new AbstractModel("Marshmallow", "Hello " + " Marshmallow"));
-        modelList.add(new AbstractModel("Nougat", "Hello " + " Nougat"));
-        modelList.add(new AbstractModel("Android O", "Hello " + " Android O"));
+//        modelList.add(new AbstractModel("Android", "Hello " + " Android"));
+//        modelList.add(new AbstractModel("Beta", "Hello " + " Beta"));
+//        modelList.add(new AbstractModel("Cupcake", "Hello " + " Cupcake"));
+//        modelList.add(new AbstractModel("Donut", "Hello " + " Donut"));
+//        modelList.add(new AbstractModel("Eclair", "Hello " + " Eclair"));
+//        modelList.add(new AbstractModel("Froyo", "Hello " + " Froyo"));
+//        modelList.add(new AbstractModel("Gingerbread", "Hello " + " Gingerbread"));
+//        modelList.add(new AbstractModel("Honeycomb", "Hello " + " Honeycomb"));
+//        modelList.add(new AbstractModel("Ice Cream Sandwich", "Hello " + " Ice Cream Sandwich"));
+//        modelList.add(new AbstractModel("Jelly Bean", "Hello " + " Jelly Bean"));
+//        modelList.add(new AbstractModel("KitKat", "Hello " + " KitKat"));
+//        modelList.add(new AbstractModel("Lollipop", "Hello " + " Lollipop"));
+//        modelList.add(new AbstractModel("Marshmallow", "Hello " + " Marshmallow"));
+//        modelList.add(new AbstractModel("Nougat", "Hello " + " Nougat"));
+//        modelList.add(new AbstractModel("Android O", "Hello " + " Android O"));
 
-        mAdapter = new RecyclerViewAdapter(DoctorActivity.this, modelList, "Doctors");
+        modelList.add(new Doctor(1, "Doctor", "Address", "Designation", "Working Hospital", "Certificate ID", "Working Clinic", new Time(0), new Time(0), 500.0));
+
+        mAdapter = new DoctorRecyclerViewAdapter(DoctorActivity.this, modelList, "Doctors");
 
         recyclerView.setHasFixedSize(true);
 
@@ -127,17 +143,12 @@ public class DoctorActivity extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
 
         mAdapter.SetOnItemClickListener((view, position, model) -> {
-
             //handle item click events here
-            Toast.makeText(DoctorActivity.this, "Hey " + model.getTitle(), Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(DoctorActivity.this, "Hey " + model.getName(), Toast.LENGTH_SHORT).show();
         });
 
         mAdapter.SetOnHeaderClickListener((view, headerTitle) -> {
-
             //handle item click events here
-
         });
-
     }
 }

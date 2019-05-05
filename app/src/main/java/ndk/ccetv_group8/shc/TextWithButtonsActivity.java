@@ -3,6 +3,8 @@ package ndk.ccetv_group8.shc;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -17,12 +19,19 @@ import ndk.utils_android14.ContextActivity;
 
 public abstract class TextWithButtonsActivity extends ContextActivity {
 
+    ScrollView scrollView;
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_with_buttons);
 
+        scrollView = findViewById(R.id.scrollView);
+        progressBar = findViewById(R.id.progressBar);
+
         ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
+
         TextView textViewFirst = findViewById(R.id.textViewFirst);
         textViewFirst.setText(configureTextViewFirstText());
 

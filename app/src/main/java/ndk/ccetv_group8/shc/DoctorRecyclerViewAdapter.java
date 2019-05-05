@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import ndk.ccetv_group8.shc.models.Doctor;
+
 
 /**
  * A custom adapter to use with the RecyclerView widget.
  */
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
+public class DoctorRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
@@ -25,21 +26,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private OnHeaderClickListener mHeaderClickListener;
 
     private Context mContext;
-    private ArrayList<AbstractModel> modelList;
+    private ArrayList<Doctor> modelList;
 
     private OnItemClickListener mItemClickListener;
 
 
-    public RecyclerViewAdapter(Context context, ArrayList<AbstractModel> modelList, String headerTitle) {
+    public DoctorRecyclerViewAdapter(Context context, ArrayList<Doctor> modelList, String headerTitle) {
         this.mContext = context;
         this.modelList = modelList;
         this.mHeaderTitle = headerTitle;
     }
 
-    public void updateList(ArrayList<AbstractModel> modelList) {
+    public void updateList(ArrayList<Doctor> modelList) {
         this.modelList = modelList;
         notifyDataSetChanged();
-
     }
 
     @Override
@@ -48,7 +48,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_header, parent, false);
             return new HeaderViewHolder(v);
         } else if (viewType == TYPE_ITEM) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_list, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.doctor_item_recycler_list, parent, false);
             return new ViewHolder(v);
         }
         return null;
@@ -58,16 +58,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof HeaderViewHolder) {
             HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
-
             headerHolder.txtTitleHeader.setText(mHeaderTitle);
-
         } else if (holder instanceof ViewHolder) {
-            final AbstractModel model = getItem(position - 1);
+            final Doctor model = getItem(position - 1);
             ViewHolder genericViewHolder = (ViewHolder) holder;
-            genericViewHolder.itemTxtTitle.setText(model.getTitle());
-            genericViewHolder.itemTxtMessage.setText(model.getMessage());
-
-
+            genericViewHolder.itemTxtTitle.setText(model.getName());
+            genericViewHolder.itemTxtMessage.setText(model.getDesignation());
+            genericViewHolder.textViewWorkingClinic.setText("At " + model.getWorkingClinic());
+            genericViewHolder.textViewWorkingTime.setText("On " + model.getAvailableTimeStart() + " to " + model.getAvailableTimeEnd());
+            genericViewHolder.textViewConsultationFee.setText("Rs. " + model.getConsultationFee());
         }
     }
 
@@ -83,10 +82,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return position == 0;
     }
 
-
     @Override
     public int getItemCount() {
-
         return modelList.size() + 1;
     }
 
@@ -98,12 +95,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.mHeaderClickListener = headerClickListener;
     }
 
-    private AbstractModel getItem(int position) {
+    private Doctor getItem(int position) {
         return modelList.get(position);
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position, AbstractModel model);
+        void onItemClick(View view, int position, Doctor model);
     }
 
     public interface OnHeaderClickListener {
@@ -117,15 +114,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             super(itemView);
             this.txtTitleHeader = itemView.findViewById(R.id.textViewHeader);
 
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     mHeaderClickListener.onHeaderClick(itemView, mHeaderTitle);
                 }
             });
-
         }
     }
 
@@ -133,41 +127,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         private ImageView imgUser;
         private TextView itemTxtTitle;
-        private TextView itemTxtMessage;
+        private TextView itemTxtMessage, textViewWorkingClinic, textViewWorkingTime, textViewConsultationFee;
 
-
-        // @BindView(R.id.img_user)
-        // ImageView imgUser;
-        // @BindView(R.id.item_txt_title)
-        // TextView itemTxtTitle;
-        // @BindView(R.id.item_txt_message)
-        // TextView itemTxtMessage;
-        // @BindView(R.id.radio_list)
-        // RadioButton itemTxtMessage;
-        // @BindView(R.id.check_list)
-        // CheckBox itemCheckList;
         public ViewHolder(final View itemView) {
             super(itemView);
-
-            // ButterKnife.bind(this, itemView);
 
             this.imgUser = itemView.findViewById(R.id.img_user);
             this.itemTxtTitle = itemView.findViewById(R.id.item_txt_title);
             this.itemTxtMessage = itemView.findViewById(R.id.item_txt_message);
-
+            this.textViewWorkingClinic = itemView.findViewById(R.id.textViewWorkingClinic);
+            this.textViewWorkingTime = itemView.findViewById(R.id.textViewWorkingTime);
+            this.textViewConsultationFee = itemView.findViewById(R.id.textViewConsultationFee);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     mItemClickListener.onItemClick(itemView, getAdapterPosition(), modelList.get(getAdapterPosition() - 1));
-
-
                 }
             });
-
         }
     }
-
 }
 

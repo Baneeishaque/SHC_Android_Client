@@ -25,4 +25,9 @@
     <string name="title_activity_doctor">DoctorActivity</string>
     <string name="doctors">Doctors</string>
     <string name="disease">Disease</string>
+    <string name="diseaseWithFullColumn">Disease : </string>
+    <string name="doctor_avatar">Doctor Avatar</string>
+    <string name="at_working_clinic">At Working Clinic</string>
+    <string name="on_12_am_to_5_pm">On 12 AM to 5 PM</string>
+    <string name="rs_500">Rs. 500</string>
 </resources>
