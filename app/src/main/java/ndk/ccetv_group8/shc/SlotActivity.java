@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import ndk.ccetv_group8.shc.models.ConsultationSlot;
+import ndk.ccetv_group8.shc.models.ConsultationSlotModel;
 import ndk.utils_android14.ContextActivity;
 
 public class SlotActivity extends ContextActivity {
@@ -35,7 +35,7 @@ public class SlotActivity extends ContextActivity {
     private Toolbar toolbar;
 
     private ConsultationSlotRecyclerViewAdapter mAdapter;
-    private ArrayList<ConsultationSlot> modelList = new ArrayList<>();
+    private ArrayList<ConsultationSlotModel> modelList = new ArrayList<>();
 
     String selectedSlot;
     Button buttonSubmit;
@@ -61,7 +61,7 @@ public class SlotActivity extends ContextActivity {
         textViewDisease.setText("Disease : " + passedDisease);
 
         TextView textViewDoctor = findViewById(R.id.textViewDoctor);
-        textViewDoctor.setText("Doctor : " + passedDoctor);
+        textViewDoctor.setText("DoctorModel : " + passedDoctor);
 
         findViews();
         setSupportActionBar(toolbar);
@@ -124,7 +124,7 @@ public class SlotActivity extends ContextActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                ArrayList<ConsultationSlot> filterList = new ArrayList<ConsultationSlot>();
+                ArrayList<ConsultationSlotModel> filterList = new ArrayList<ConsultationSlotModel>();
                 if (s.length() > 0) {
                     for (int i = 0; i < modelList.size(); i++) {
                         if (String.valueOf(modelList.get(i).getSlotStart()).toLowerCase().contains(s.toLowerCase()) || String.valueOf(modelList.get(i).getSlotEnd()).toLowerCase().contains(s.toLowerCase())) {
@@ -159,11 +159,11 @@ public class SlotActivity extends ContextActivity {
 //        modelList.add(new AbstractModel("Nougat", "Hello " + " Nougat"));
 //        modelList.add(new AbstractModel("Android O", "Hello " + " Android O"));
 
-//        modelList.add(new Doctor(1, "Doctor", "Address", "Designation", "Working Hospital", "Certificate ID", "Working Clinic", new Time(0), new Time(0), 500.0));
+//        modelList.add(new DoctorModel(1, "DoctorModel", "Address", "Designation", "Working Hospital", "Certificate ID", "Working Clinic", new Time(0), new Time(0), 500.0));
 
-        modelList.add(new ConsultationSlot("9 AM", "10 AM"));
-        modelList.add(new ConsultationSlot("11 AM", "12 PM"));
-        modelList.add(new ConsultationSlot("3 PM", "4 PM"));
+        modelList.add(new ConsultationSlotModel("9 AM", "10 AM"));
+        modelList.add(new ConsultationSlotModel("11 AM", "12 PM"));
+        modelList.add(new ConsultationSlotModel("3 PM", "4 PM"));
         mAdapter = new ConsultationSlotRecyclerViewAdapter(activity_context, modelList, "Time Slots");
 
         recyclerView.setHasFixedSize(true);

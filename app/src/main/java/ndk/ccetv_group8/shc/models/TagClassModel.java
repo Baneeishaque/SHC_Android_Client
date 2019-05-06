@@ -3,12 +3,12 @@ package ndk.ccetv_group8.shc.models;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class TagClass {
+public class TagClassModel {
 
     private String name;
     private String color;
 
-    public TagClass(String name) {
+    public TagClassModel(String name) {
         this.name = name;
         this.color = getRandomColor();
     }

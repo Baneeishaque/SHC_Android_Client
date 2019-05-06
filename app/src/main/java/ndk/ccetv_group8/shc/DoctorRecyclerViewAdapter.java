@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import ndk.ccetv_group8.shc.models.Doctor;
+import ndk.ccetv_group8.shc.models.DoctorModel;
 
 
 /**
@@ -26,18 +26,18 @@ public class DoctorRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     private OnHeaderClickListener mHeaderClickListener;
 
     private Context mContext;
-    private ArrayList<Doctor> modelList;
+    private ArrayList<DoctorModel> modelList;
 
     private OnItemClickListener mItemClickListener;
 
 
-    public DoctorRecyclerViewAdapter(Context context, ArrayList<Doctor> modelList, String headerTitle) {
+    public DoctorRecyclerViewAdapter(Context context, ArrayList<DoctorModel> modelList, String headerTitle) {
         this.mContext = context;
         this.modelList = modelList;
         this.mHeaderTitle = headerTitle;
     }
 
-    public void updateList(ArrayList<Doctor> modelList) {
+    public void updateList(ArrayList<DoctorModel> modelList) {
         this.modelList = modelList;
         notifyDataSetChanged();
     }
@@ -60,7 +60,7 @@ public class DoctorRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
             headerHolder.txtTitleHeader.setText(mHeaderTitle);
         } else if (holder instanceof ViewHolder) {
-            final Doctor model = getItem(position - 1);
+            final DoctorModel model = getItem(position - 1);
             ViewHolder genericViewHolder = (ViewHolder) holder;
             genericViewHolder.itemTxtTitle.setText(model.getName());
             genericViewHolder.itemTxtMessage.setText(model.getDesignation());
@@ -95,12 +95,12 @@ public class DoctorRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         this.mHeaderClickListener = headerClickListener;
     }
 
-    private Doctor getItem(int position) {
+    private DoctorModel getItem(int position) {
         return modelList.get(position);
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position, Doctor model);
+        void onItemClick(View view, int position, DoctorModel model);
     }
 
     public interface OnHeaderClickListener {

@@ -11,6 +11,6 @@ public class DiseasePredictionFailureNoMatch extends TextWithButtonsActivity {
 
     @Override
     protected Pair[] configureButtonsWithClickEvents() {
-        return new Pair[]{new Pair<>(getResources().getString(R.string.proceed), ButtonUtils.getStartActivityButtonEvent(activity_context, DoctorshomeActivity.class)), new Pair<>(getResources().getString(R.string.try_again), ButtonUtils.getBackButtonEvent(this)), new Pair<>(getResources().getString(R.string.no_thanks), ButtonUtils.getButtonEvent(() -> ActivityUtils.toHomeActivityWithConfirmation(activity_context)))};
+        return new Pair[]{new Pair<>(getResources().getString(R.string.proceed), ButtonUtils.getStartActivityButtonEvent(activity_context, DoctorActivity.class)), new Pair<>(getResources().getString(R.string.try_again), ButtonUtils.getBackButtonEvent(this)), new Pair<>(getResources().getString(R.string.no_thanks), ButtonUtils.getButtonEvent(() -> ActivityUtils.toHomeActivityWithConfirmation(activity_context)))};
     }
 }

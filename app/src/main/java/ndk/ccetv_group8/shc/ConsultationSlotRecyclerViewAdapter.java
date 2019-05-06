@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import ndk.ccetv_group8.shc.models.ConsultationSlot;
+import ndk.ccetv_group8.shc.models.ConsultationSlotModel;
 
 /**
  * A custom adapter to use with the RecyclerView widget.
@@ -24,18 +24,18 @@ public class ConsultationSlotRecyclerViewAdapter extends RecyclerView.Adapter<Re
     private OnHeaderClickListener mHeaderClickListener;
 
     private Context mContext;
-    private ArrayList<ConsultationSlot> modelList;
+    private ArrayList<ConsultationSlotModel> modelList;
 
     private OnItemClickListener mItemClickListener;
 
 
-    public ConsultationSlotRecyclerViewAdapter(Context context, ArrayList<ConsultationSlot> modelList, String headerTitle) {
+    public ConsultationSlotRecyclerViewAdapter(Context context, ArrayList<ConsultationSlotModel> modelList, String headerTitle) {
         this.mContext = context;
         this.modelList = modelList;
         this.mHeaderTitle = headerTitle;
     }
 
-    public void updateList(ArrayList<ConsultationSlot> modelList) {
+    public void updateList(ArrayList<ConsultationSlotModel> modelList) {
         this.modelList = modelList;
         notifyDataSetChanged();
     }
@@ -58,7 +58,7 @@ public class ConsultationSlotRecyclerViewAdapter extends RecyclerView.Adapter<Re
             HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
             headerHolder.txtTitleHeader.setText(mHeaderTitle);
         } else if (holder instanceof ViewHolder) {
-            final ConsultationSlot model = getItem(position - 1);
+            final ConsultationSlotModel model = getItem(position - 1);
             ViewHolder genericViewHolder = (ViewHolder) holder;
             genericViewHolder.itemTxtTitle.setText(model.getSlotStart() + " to " + model.getSlotEnd());
 //            genericViewHolder.itemTxtMessage.setText(model.getDesignation());
@@ -93,12 +93,12 @@ public class ConsultationSlotRecyclerViewAdapter extends RecyclerView.Adapter<Re
         this.mHeaderClickListener = headerClickListener;
     }
 
-    private ConsultationSlot getItem(int position) {
+    private ConsultationSlotModel getItem(int position) {
         return modelList.get(position);
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position, ConsultationSlot model);
+        void onItemClick(View view, int position, ConsultationSlotModel model);
     }
 
     public interface OnHeaderClickListener {

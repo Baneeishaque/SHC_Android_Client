@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import ndk.ccetv_group8.shc.models.Doctor;
+import ndk.ccetv_group8.shc.models.DoctorModel;
 import ndk.utils_android14.ContextActivity;
 
 public class DoctorActivity extends ContextActivity {
@@ -30,7 +30,7 @@ public class DoctorActivity extends ContextActivity {
     String passedDisease;
 
     private DoctorRecyclerViewAdapter mAdapter;
-    private ArrayList<Doctor> modelList = new ArrayList<>();
+    private ArrayList<DoctorModel> modelList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +96,7 @@ public class DoctorActivity extends ContextActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                ArrayList<Doctor> filterList = new ArrayList<Doctor>();
+                ArrayList<DoctorModel> filterList = new ArrayList<DoctorModel>();
                 if (s.length() > 0) {
                     for (int i = 0; i < modelList.size(); i++) {
                         if (modelList.get(i).getName().toLowerCase().contains(s.toLowerCase())) {
@@ -131,11 +131,11 @@ public class DoctorActivity extends ContextActivity {
 //        modelList.add(new AbstractModel("Nougat", "Hello " + " Nougat"));
 //        modelList.add(new AbstractModel("Android O", "Hello " + " Android O"));
 
-        modelList.add(new Doctor(1, "Doctor 1", "Doctor 1 Address", "Doctor 1 Designation", "Doctor 1 Working Hospital", "Doctor 1 Certificate ID", "Doctor 1 Working Clinic", "9 AM", "4 PM", 500.0));
+        modelList.add(new DoctorModel(1, "DoctorModel 1", "DoctorModel 1 Address", "DoctorModel 1 Designation", "DoctorModel 1 Working Hospital", "DoctorModel 1 Certificate ID", "DoctorModel 1 Working Clinic", "9 AM", "4 PM", 500.0));
 
-        modelList.add(new Doctor(2, "Doctor 2", "Doctor 2 Address", "Doctor 2 Designation", "Doctor 2 Working Hospital", "Doctor 2 Certificate ID", "Doctor 2 Working Clinic", "11 AM", "4 PM", 500.0));
+        modelList.add(new DoctorModel(2, "DoctorModel 2", "DoctorModel 2 Address", "DoctorModel 2 Designation", "DoctorModel 2 Working Hospital", "DoctorModel 2 Certificate ID", "DoctorModel 2 Working Clinic", "11 AM", "4 PM", 500.0));
 
-        modelList.add(new Doctor(3, "Doctor 3", "Doctor 3 Address", "Doctor 3 Designation", "Doctor 3 Working Hospital", "Doctor 3 Certificate ID", "Doctor 3 Working Clinic", "2 PM", "4 PM", 500.0));
+        modelList.add(new DoctorModel(3, "DoctorModel 3", "DoctorModel 3 Address", "DoctorModel 3 Designation", "DoctorModel 3 Working Hospital", "DoctorModel 3 Certificate ID", "DoctorModel 3 Working Clinic", "2 PM", "4 PM", 500.0));
 
         mAdapter = new DoctorRecyclerViewAdapter(DoctorActivity.this, modelList, "Doctors");
 

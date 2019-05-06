@@ -15,7 +15,7 @@ import ndk.utils_android14.ContextActivity;
 import ndk.utils_android16.SharedPreference_Utils;
 import ndk.utils_android16.Validation_Utils;
 
-public class ActivityServerConfiguration extends ContextActivity {
+public class ServerConfigurationActivity extends ContextActivity {
 
     //TODO : To Utils
 

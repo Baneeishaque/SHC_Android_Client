@@ -1,12 +1,12 @@
 package ndk.ccetv_group8.shc.models;
 
-public class Doctor {
+public class DoctorModel {
     private int id;
     private String name, address, designation, workingHospital, certificateID, workingClinic;
     private String availableTimeStart, availableTimeEnd;
     private Double consultationFee;
 
-    public Doctor(int id, String name, String address, String designation, String workingHospital, String certificateID, String workingClinic, String availableTimeStart, String availableTimeEnd, Double consultationFee) {
+    public DoctorModel(int id, String name, String address, String designation, String workingHospital, String certificateID, String workingClinic, String availableTimeStart, String availableTimeEnd, Double consultationFee) {
         this.id = id;
         this.name = name;
         this.address = address;

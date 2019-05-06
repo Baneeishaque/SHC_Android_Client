@@ -1,9 +1,9 @@
 package ndk.ccetv_group8.shc.models;
 
-public class ConsultationSlot {
+public class ConsultationSlotModel {
     private String slotStart, slotEnd;
 
-    public ConsultationSlot(String slotStart, String slotEnd) {
+    public ConsultationSlotModel(String slotStart, String slotEnd) {
         this.slotStart = slotStart;
         this.slotEnd = slotEnd;
     }

@@ -36,7 +36,7 @@ public class AppointmentsActivity extends ContextActivity {
         setContentView(R.layout.activity_appointments);
 
 //        Spinner spinnerDoctor = findViewById(R.id.spinnerDoctor);
-//        ArrayAdapter<String> spinner_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Arrays.asList(new String[]{"Doctor 1", "Doctor 2", "Doctor 3"}));
+//        ArrayAdapter<String> spinner_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Arrays.asList(new String[]{"DoctorModel 1", "DoctorModel 2", "DoctorModel 3"}));
 //        spinner_adapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
 //        spinnerDoctor.setAdapter(spinner_adapter);
 

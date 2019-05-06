@@ -24,7 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import cn.refactor.kmpautotextview.KMPAutoComplTextView;
-import ndk.ccetv_group8.shc.models.TagClass;
+import ndk.ccetv_group8.shc.models.TagClassModel;
 import ndk.utils_android14.ActivityUtils;
 import ndk.utils_android16.Alert_Dialog_Utils;
 import ndk.utils_android16.Toast_Utils;
@@ -184,7 +184,7 @@ public class SymptomsActivity extends Options_Item_Selected_TODO_Activity {
                 String predictedDisease = StringUtils.removeQuotations(response);
                 if (predictedDisease.equals("exception")) {
                     //TODO : Make scenarios for no match & More Symptoms & incorporate them
-                    ActivityUtils.start_activity(activity_context, DiseasePredictionFailureNoMatch.class);
+                    LogUtilsWrapper.debug("Error...");
                 } else {
                     Toast_Utils.longToast(getApplicationContext(), "Disease : " + StringUtils.removeQuotations(response));
                     ActivityUtils.start_activity_with_string_extras(activity_context, DiseasePredictionSuccess.class, new Pair[]{new Pair<>("disease", predictedDisease)}, false, 0);
@@ -275,10 +275,10 @@ public class SymptomsActivity extends Options_Item_Selected_TODO_Activity {
 
     //TODO : To tagview Utils - add a tag
     private void addTag(TagView tagGroup, String tagName) {
-        TagClass tagClass = new TagClass(tagName);
-        Tag tag = new Tag(tagClass.getName());
+        TagClassModel tagClassModel = new TagClassModel(tagName);
+        Tag tag = new Tag(tagClassModel.getName());
         tag.radius = 10f;
-        tag.layoutColor = Color.parseColor(tagClass.getColor());
+        tag.layoutColor = Color.parseColor(tagClassModel.getColor());
         tag.isDeletable = true;
         tagGroup.addTag(tag);
     }

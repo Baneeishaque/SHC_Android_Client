@@ -63,7 +63,7 @@ public class SubmitDetailsActivity extends ContextActivity {
         textViewDisease.setText("Disease : " + passedDisease);
 
         TextView textViewDoctor = findViewById(R.id.textViewDoctor);
-        textViewDoctor.setText("Doctor : " + passedDoctor);
+        textViewDoctor.setText("DoctorModel : " + passedDoctor);
 
         TextView textViewSlot = findViewById(R.id.textViewSlot);
         textViewSlot.setText("Slot : " + passedSlot);
@@ -79,9 +79,9 @@ public class SubmitDetailsActivity extends ContextActivity {
                 new Alert_Dialog_Utils((dialog, which) -> {
                     buttonSubmit.setVisibility(View.INVISIBLE);
                     new Alert_Dialog_Utils((dialog1, which1) -> ndk.utils_android14.ActivityUtils.start_activity_with_finish(activity_context, SymptomsActivity.class, ApplicationConstants.APPLICATION_NAME), (dialog12, which12) -> {
-                    }).titled_OK_Dialogue(activity_context, "Name : " + editTextName.getText().toString() + "\n" + "Address : " + editTextAddress.getText().toString() + "\n" + "Contact Number : " + editTextContactNumber.getText().toString() + "\n\n" + "Disease : " + passedDisease + "\n" + "Doctor : " + passedDoctor + "\n" + "Slot : " + passedSlot + "\n" + "TransactionID : " + passedTransactionID + "\n\n" + "Please Keep These Things...", "Caution", false);
+                    }).titled_OK_Dialogue(activity_context, "Name : " + editTextName.getText().toString() + "\n" + "Address : " + editTextAddress.getText().toString() + "\n" + "Contact Number : " + editTextContactNumber.getText().toString() + "\n\n" + "Disease : " + passedDisease + "\n" + "DoctorModel : " + passedDoctor + "\n" + "Slot : " + passedSlot + "\n" + "TransactionID : " + passedTransactionID + "\n\n" + "Please Keep These Things...", "Caution", false);
                 }, (dialog, which) -> {
-                }).titled_Yes_No_Dialogue(activity_context, "Name : " + editTextName.getText().toString() + "\n" + "Address : " + editTextAddress.getText().toString() + "\n" + "Contact Number : " + editTextContactNumber.getText().toString() + "\n\n" + "Disease : " + passedDisease + "\n" + "Doctor : " + passedDoctor + "\n" + "Slot : " + passedSlot + "\n" + "TransactionID : " + passedTransactionID, "Confirmation", true);
+                }).titled_Yes_No_Dialogue(activity_context, "Name : " + editTextName.getText().toString() + "\n" + "Address : " + editTextAddress.getText().toString() + "\n" + "Contact Number : " + editTextContactNumber.getText().toString() + "\n\n" + "Disease : " + passedDisease + "\n" + "DoctorModel : " + passedDoctor + "\n" + "Slot : " + passedSlot + "\n" + "TransactionID : " + passedTransactionID, "Confirmation", true);
             }
         }));
     }
