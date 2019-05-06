@@ -7,7 +7,9 @@ import android.text.InputFilter;
 import android.text.Spanned;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import ndk.ccetv_group8.shc.R;
 import ndk.ccetv_group8.shc.adaptors.AppointmentRecyclerViewAdapter;
@@ -37,15 +40,29 @@ public class AppointmentsActivity extends ContextActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appointments);
 
-//        Spinner spinnerDoctor = findViewById(R.id.spinnerDoctor);
-//        ArrayAdapter<String> spinner_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Arrays.asList(new String[]{"DoctorModel 1", "DoctorModel 2", "DoctorModel 3"}));
-//        spinner_adapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
-//        spinnerDoctor.setAdapter(spinner_adapter);
+        Spinner spinnerDoctor = findViewById(R.id.spinnerDoctor);
 
-//        if (getIntent().getExtras() != null && getIntent().getIntExtra("doctorPosition", 0) != 0) {
-//            spinnerDoctor.setSelection(getIntent().getIntExtra("doctorPosition", 0));
-//        }
-//        spinnerDoctor.setOnItemClickListener((parent, view, position, id) -> ndk.utils_android14.ActivityUtils.start_activity_with_integer_extras_and_finish(activity_context, AppointmentsActivity.class, new Pair[]{new Pair<>("doctorPosition", spinnerDoctor.getSelectedItemPosition())}));
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<String> spinner_adapter = new ArrayAdapter<>(this, R.layout.spinner_item, Arrays.asList("Doctor 1", "Doctor 2", "Doctor 3"));
+
+        // Apply the adapter to the spinner
+        spinnerDoctor.setAdapter(spinner_adapter);
+
+        if (getIntent().getExtras() != null && getIntent().getIntExtra("doctorPosition", 0) != 0) {
+            spinnerDoctor.setSelection(getIntent().getIntExtra("doctorPosition", 0));
+        }
+
+//        spinnerDoctor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                ndk.utils_android14.ActivityUtils.start_activity_with_integer_extras_and_finish(activity_context, AppointmentsActivity.class, new Pair[]{new Pair<>("doctorPosition", position)});
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
         findViews();
         setSupportActionBar(toolbar);

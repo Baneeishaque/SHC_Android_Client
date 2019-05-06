@@ -64,7 +64,7 @@ public class SlotActivity extends ContextActivity {
         textViewDisease.setText("Disease : " + passedDisease);
 
         TextView textViewDoctor = findViewById(R.id.textViewDoctor);
-        textViewDoctor.setText("DoctorModel : " + passedDoctor);
+        textViewDoctor.setText("Doctor : " + passedDoctor);
 
         findViews();
         setSupportActionBar(toolbar);

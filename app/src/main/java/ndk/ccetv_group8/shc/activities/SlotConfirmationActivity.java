@@ -55,7 +55,7 @@ public class SlotConfirmationActivity extends ContextActivity {
         textViewDisease.setText("Disease : " + passedDisease);
 
         TextView textViewDoctor = findViewById(R.id.textViewDoctor);
-        textViewDoctor.setText("DoctorModel : " + passedDoctor);
+        textViewDoctor.setText("Doctor : " + passedDoctor);
 
         TextView textViewSlot = findViewById(R.id.textViewSlot);
         textViewSlot.setText("Slot : " + passedSlot);
