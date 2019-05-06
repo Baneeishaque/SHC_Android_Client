@@ -15,10 +15,19 @@ android {
         useLibrary 'org.apache.http.legacy'
 
     }
+    signingConfigs {
+        release {
+            keyAlias 'snake'
+            keyPassword '9895204814'
+            storeFile file('../keystore.jks')
+            storePassword '9895204814'
+        }
+    }
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
@@ -56,5 +65,4 @@ dependencies {
 
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-
 }

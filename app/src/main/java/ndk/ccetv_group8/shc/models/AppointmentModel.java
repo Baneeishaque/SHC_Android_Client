@@ -1,9 +1,9 @@
 package ndk.ccetv_group8.shc.models;
 
-public class Appointment {
-    String name, address, contactNumber, consultationSlot, disease;
+public class AppointmentModel {
+    private String name, address, contactNumber, consultationSlot, disease;
 
-    public Appointment(String name, String address, String contactNumber, String consultationSlot, String disease) {
+    public AppointmentModel(String name, String address, String contactNumber, String consultationSlot, String disease) {
         this.name = name;
         this.address = address;
         this.contactNumber = contactNumber;

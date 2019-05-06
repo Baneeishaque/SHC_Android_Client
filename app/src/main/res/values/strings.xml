@@ -20,7 +20,7 @@
     <string name="more_symptoms_title">More Symptoms</string>
     <string name="no_thanks">No, Thanks…</string>
     <string name="server_ip_address">Server Address</string>
-    <string name="serverAddress">http://192.168.43.89:5000</string>
+    <string name="serverAddress">http://139.59.65.128:8000</string>
     <string name="serverConfiguration">Server Configuration</string>
     <string name="title_activity_doctor">DoctorActivity</string>
     <string name="doctors">Available Doctors</string>

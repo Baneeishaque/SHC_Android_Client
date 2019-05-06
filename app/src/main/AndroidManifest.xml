@@ -13,6 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".AppointmentsActivity"
+            android:theme="@style/AppTheme.Template.Base">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ActivityServerConfiguration"
             android:label="@string/app_name">
             <intent-filter>
@@ -61,7 +70,7 @@
         <activity android:name=".Main2Activity" />
         <activity android:name=".LoginPageActivity" />
         <activity android:name=".FirstPageActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity2" />
         <activity
             android:name=".DoctorActivity"
             android:label="@string/doctors"
