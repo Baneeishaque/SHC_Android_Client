@@ -16,11 +16,16 @@ import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import ndk.ccetv_group8.shc.R;
 import ndk.ccetv_group8.shc.adaptors.DoctorRecyclerViewAdapter;
 import ndk.ccetv_group8.shc.models.DoctorModel;
+import ndk.ccetv_group8.shc.wrappers.ErrorUtilsWrapper;
 import ndk.utils_android14.ContextActivity;
 
 public class DoctorActivity extends ContextActivity {
@@ -133,6 +138,18 @@ public class DoctorActivity extends ContextActivity {
 //        modelList.add(new AbstractModel("Nougat", "Hello " + " Nougat"));
 //        modelList.add(new AbstractModel("Android O", "Hello " + " Android O"));
 
+        if (getIntent().getExtras() != null && getIntent().getStringExtra("doctors") != null
+        ) {
+            try {
+                JSONArray jsonArray = new JSONArray(getIntent().getStringExtra("doctors"));
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    modelList.add(new DoctorModel(jsonObject.getInt("doctor_id"), jsonObject.getString("doctor_name"), jsonObject.getString("doctor_address"), jsonObject.getString("doctor_designation"), jsonObject.getString("doctor_working_hospital"), jsonObject.getString("doctor_certificate_id"), jsonObject.getString("doctor_working_clinic"), jsonObject.getString("doctor_available_time"), jsonObject.getString("doctor_available_time"), jsonObject.getDouble("doctor_consultation_fee")));
+                }
+            } catch (JSONException e) {
+                ErrorUtilsWrapper.displayException(activity_context, e);
+            }
+        }
         modelList.add(new DoctorModel(1, "DoctorModel 1", "DoctorModel 1 Address", "DoctorModel 1 Designation", "DoctorModel 1 Working Hospital", "DoctorModel 1 Certificate ID", "DoctorModel 1 Working Clinic", "9 AM", "4 PM", 500.0));
 
         modelList.add(new DoctorModel(2, "DoctorModel 2", "DoctorModel 2 Address", "DoctorModel 2 Designation", "DoctorModel 2 Working Hospital", "DoctorModel 2 Certificate ID", "DoctorModel 2 Working Clinic", "11 AM", "4 PM", 500.0));
