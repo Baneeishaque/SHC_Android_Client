@@ -7,6 +7,7 @@ import android.text.InputFilter;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.SearchView;
@@ -25,13 +26,19 @@ import java.util.ArrayList;
 import ndk.ccetv_group8.shc.R;
 import ndk.ccetv_group8.shc.adaptors.DoctorRecyclerViewAdapter;
 import ndk.ccetv_group8.shc.models.DoctorModel;
+import ndk.ccetv_group8.shc.to_utils.StringUtils;
+import ndk.ccetv_group8.shc.wrappers.APIUtilsWrapper;
 import ndk.ccetv_group8.shc.wrappers.ErrorUtilsWrapper;
+import ndk.ccetv_group8.shc.wrappers.LogUtilsWrapper;
+import ndk.ccetv_group8.shc.wrappers.RESTGETTaskUtilsWrapper;
 import ndk.utils_android14.ContextActivity;
+import ndk.utils_android16.Toast_Utils;
 
 public class DoctorActivity extends ContextActivity {
 
     private RecyclerView recyclerView;
     private Toolbar toolbar;
+    ProgressBar progressBar;
 
     String disease = "XYZ";
     String passedDisease;
@@ -58,6 +65,7 @@ public class DoctorActivity extends ContextActivity {
     }
 
     private void findViews() {
+        progressBar = findViewById(R.id.progressBar);
         toolbar = findViewById(R.id.toolbar);
         recyclerView = findViewById(R.id.recyclerView);
     }
@@ -169,7 +177,23 @@ public class DoctorActivity extends ContextActivity {
         mAdapter.SetOnItemClickListener((view, position, model) -> {
             //handle item click events here
 //            Toast.makeText(DoctorActivity.this, "Hey " + model.getName(), Toast.LENGTH_SHORT).show();
-            ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, SlotActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctor", model.getName())}, false, 0);
+//            ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, SlotActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctor", model.getName())}, false, 0);
+
+            new RESTGETTaskUtilsWrapper().execute(APIUtilsWrapper.getHTTPAPI2("" + model.getId(), "get_slot"), activity_context, progressBar, response -> {
+
+                LogUtilsWrapper.debug(response);
+                if (response.equals("exception")) {
+                    //TODO : Make scenarios for no match & More Symptoms & incorporate them
+                    LogUtilsWrapper.debug("Error...");
+                } else {
+                    if (StringUtils.removeQuotations(response).equals("[]")) {
+                        Toast_Utils.longToast(getApplicationContext(), "Sorry No Slots Available...");
+                    } else {
+                        ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, SlotActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("slots", StringUtils.removeHyphens(StringUtils.removeFirstAndLastCharacters(response))), new Pair<>("disease", passedDisease), new Pair<>("doctor", model.getName())}, false, 0);
+                    }
+                }
+            });
+
         });
 
         mAdapter.SetOnHeaderClickListener((view, headerTitle) -> {

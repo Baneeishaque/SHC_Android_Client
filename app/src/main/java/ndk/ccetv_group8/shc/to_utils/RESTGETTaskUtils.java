@@ -25,6 +25,17 @@ public abstract class RESTGETTaskUtils {
         }
     }
 
+    public void execute(String task_URL, Context context, View mProgressView, RESTGETTask.Async_Response async_response) {
+
+        if (isOnline(context)) {
+            ProgressBarUtils.showProgress(true, context, mProgressView);
+            RESTGETTask rest_select_task = new RESTGETTask(task_URL, context, mProgressView, configureApplicationName(), async_response);
+            rest_select_task.execute();
+        } else {
+            Toast_Utils.longToast(context, "Internet is unavailable");
+        }
+    }
+
     public abstract String configureApplicationName();
 
     public void execute(String task_URL, Context context, View mProgressView, View mLoginFormView, RESTGETTask.Async_Response_JSON_object async_response_json_object) {

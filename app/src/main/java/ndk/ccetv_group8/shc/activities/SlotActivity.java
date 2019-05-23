@@ -18,12 +18,17 @@ import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import ndk.ccetv_group8.shc.R;
 import ndk.ccetv_group8.shc.adaptors.ConsultationSlotRecyclerViewAdapter;
 import ndk.ccetv_group8.shc.models.ConsultationSlotModel;
 import ndk.ccetv_group8.shc.to_utils.ButtonUtils;
+import ndk.ccetv_group8.shc.wrappers.ErrorUtilsWrapper;
 import ndk.utils_android14.ContextActivity;
 
 public class SlotActivity extends ContextActivity {
@@ -164,9 +169,24 @@ public class SlotActivity extends ContextActivity {
 
 //        modelList.add(new DoctorModel(1, "DoctorModel", "Address", "Designation", "Working Hospital", "Certificate ID", "Working Clinic", new Time(0), new Time(0), 500.0));
 
-        modelList.add(new ConsultationSlotModel("9 AM", "10 AM"));
-        modelList.add(new ConsultationSlotModel("11 AM", "12 PM"));
-        modelList.add(new ConsultationSlotModel("3 PM", "4 PM"));
+        String slots = getIntent().getStringExtra("slots");
+        if (getIntent().getExtras() != null && slots != null
+        ) {
+            try {
+                JSONArray jsonArray = new JSONArray(slots);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    modelList.add(new ConsultationSlotModel(jsonObject.getString("appoinment_slot_time"), jsonObject.getString("appoinment_slot_time")));
+                }
+            } catch (JSONException e) {
+                ErrorUtilsWrapper.displayException(activity_context, e);
+            }
+        }
+
+//        modelList.add(new ConsultationSlotModel("9 AM", "10 AM"));
+//        modelList.add(new ConsultationSlotModel("11 AM", "12 PM"));
+//        modelList.add(new ConsultationSlotModel("3 PM", "4 PM"));
+
         mAdapter = new ConsultationSlotRecyclerViewAdapter(activity_context, modelList, "Time Slots");
 
         recyclerView.setHasFixedSize(true);

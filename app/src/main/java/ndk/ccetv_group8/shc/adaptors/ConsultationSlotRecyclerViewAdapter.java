@@ -61,7 +61,9 @@ public class ConsultationSlotRecyclerViewAdapter extends RecyclerView.Adapter<Re
         } else if (holder instanceof ViewHolder) {
             final ConsultationSlotModel model = getItem(position - 1);
             ViewHolder genericViewHolder = (ViewHolder) holder;
-            genericViewHolder.itemTxtTitle.setText(model.getSlotStart() + " to " + model.getSlotEnd());
+//            genericViewHolder.itemTxtTitle.setText(model.getSlotStart() + " to " + model.getSlotEnd());
+            genericViewHolder.itemTxtTitle.setText(model.getSlotStart());
+
 //            genericViewHolder.itemTxtMessage.setText(model.getDesignation());
 //            genericViewHolder.textViewWorkingClinic.setText("At " + model.getWorkingClinic());
 //            genericViewHolder.textViewWorkingTime.setText("On " + model.getAvailableTimeStart() + " to " + model.getAvailableTimeEnd());
