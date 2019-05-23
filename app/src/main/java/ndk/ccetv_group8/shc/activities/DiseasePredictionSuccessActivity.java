@@ -70,14 +70,14 @@ public class DiseasePredictionSuccessActivity extends TextWithButtonsActivity {
                                 //TODO : Make scenarios for no match & More Symptoms & incorporate them
                                 LogUtilsWrapper.debug("Error...");
                             } else {
-                                if (response.equals("[]")) {
-                                    Toast_Utils.longToast(getApplicationContext(), "Sorry No Doctors Available... " + StringUtils.removeQuotations(response));
+                                if (StringUtils.removeQuotations(response).equals("[]")) {
+                                    Toast_Utils.longToast(getApplicationContext(), "Sorry No Doctors Available...");
                                 } else {
-                                    ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, DoctorActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctors", response)}, false, 0);
+                                    ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, DoctorActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctors", StringUtils.removeHyphens(StringUtils.removeFirstAndLastCharacters(response))), new Pair<>("longitude", location.getLongitude()), new Pair<>("latitude", location.getLatitude())}, false, 0);
                                 }
                             }
                         });
-                        ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, DoctorActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("longitude", location.getLongitude()), new Pair<>("latitude", location.getLatitude())}, false, 0);
+//                        ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, DoctorActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("longitude", location.getLongitude()), new Pair<>("latitude", location.getLatitude())}, false, 0);
                     }
                 };
                 if (locationUtils.getLocation(activity_context, locationResult)) {

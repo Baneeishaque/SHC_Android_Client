@@ -66,7 +66,8 @@ public class DoctorRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             genericViewHolder.itemTxtTitle.setText(model.getName());
             genericViewHolder.itemTxtMessage.setText(model.getDesignation());
             genericViewHolder.textViewWorkingClinic.setText("At " + model.getWorkingClinic());
-            genericViewHolder.textViewWorkingTime.setText("On " + model.getAvailableTimeStart() + " to " + model.getAvailableTimeEnd());
+//            genericViewHolder.textViewWorkingTime.setText("On " + model.getAvailableTimeStart() + " to " + model.getAvailableTimeEnd());
+            genericViewHolder.textViewWorkingTime.setText("On " + model.getAvailableTimeStart());
             genericViewHolder.textViewConsultationFee.setText("Rs. " + model.getConsultationFee());
         }
     }

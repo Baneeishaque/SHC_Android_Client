@@ -138,10 +138,11 @@ public class DoctorActivity extends ContextActivity {
 //        modelList.add(new AbstractModel("Nougat", "Hello " + " Nougat"));
 //        modelList.add(new AbstractModel("Android O", "Hello " + " Android O"));
 
-        if (getIntent().getExtras() != null && getIntent().getStringExtra("doctors") != null
+        String doctors = getIntent().getStringExtra("doctors");
+        if (getIntent().getExtras() != null && doctors != null
         ) {
             try {
-                JSONArray jsonArray = new JSONArray(getIntent().getStringExtra("doctors"));
+                JSONArray jsonArray = new JSONArray(doctors);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     modelList.add(new DoctorModel(jsonObject.getInt("doctor_id"), jsonObject.getString("doctor_name"), jsonObject.getString("doctor_address"), jsonObject.getString("doctor_designation"), jsonObject.getString("doctor_working_hospital"), jsonObject.getString("doctor_certificate_id"), jsonObject.getString("doctor_working_clinic"), jsonObject.getString("doctor_available_time"), jsonObject.getString("doctor_available_time"), jsonObject.getDouble("doctor_consultation_fee")));
@@ -150,11 +151,11 @@ public class DoctorActivity extends ContextActivity {
                 ErrorUtilsWrapper.displayException(activity_context, e);
             }
         }
-        modelList.add(new DoctorModel(1, "Doctor 1", "Doctor 1 Address", "Doctor 1 Designation", "Doctor 1 Working Hospital", "Doctor 1 Certificate ID", "Doctor 1 Working Clinic", "9 AM", "4 PM", 500.0));
-
-        modelList.add(new DoctorModel(2, "Doctor 2", "Doctor 2 Address", "Doctor 2 Designation", "Doctor 2 Working Hospital", "Doctor 2 Certificate ID", "Doctor 2 Working Clinic", "11 AM", "4 PM", 500.0));
-
-        modelList.add(new DoctorModel(3, "Doctor 3", "Doctor 3 Address", "Doctor 3 Designation", "Doctor 3 Working Hospital", "Doctor 3 Certificate ID", "Doctor 3 Working Clinic", "2 PM", "4 PM", 500.0));
+//        modelList.add(new DoctorModel(1, "Doctor 1", "Doctor 1 Address", "Doctor 1 Designation", "Doctor 1 Working Hospital", "Doctor 1 Certificate ID", "Doctor 1 Working Clinic", "9 AM", "4 PM", 500.0));
+//
+//        modelList.add(new DoctorModel(2, "Doctor 2", "Doctor 2 Address", "Doctor 2 Designation", "Doctor 2 Working Hospital", "Doctor 2 Certificate ID", "Doctor 2 Working Clinic", "11 AM", "4 PM", 500.0));
+//
+//        modelList.add(new DoctorModel(3, "Doctor 3", "Doctor 3 Address", "Doctor 3 Designation", "Doctor 3 Working Hospital", "Doctor 3 Certificate ID", "Doctor 3 Working Clinic", "2 PM", "4 PM", 500.0));
 
         mAdapter = new DoctorRecyclerViewAdapter(DoctorActivity.this, modelList, "Doctors");
 

@@ -6,7 +6,15 @@ public class StringUtils {
         return removeSymbol(string, "\"");
     }
 
-    private static String removeSymbol(String string, String symbol) {
+    public static String removeHyphens(String string) {
+        return removeSymbol(string, "\\");
+    }
+
+    public static String removeSymbol(String string, String symbol) {
         return string.replace(symbol, "");
+    }
+
+    public static String removeFirstAndLastCharacters(String string) {
+        return string.substring(1, string.length() - 1);
     }
 }
