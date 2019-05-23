@@ -150,11 +150,11 @@ public class DoctorActivity extends ContextActivity {
                 ErrorUtilsWrapper.displayException(activity_context, e);
             }
         }
-        modelList.add(new DoctorModel(1, "DoctorModel 1", "DoctorModel 1 Address", "DoctorModel 1 Designation", "DoctorModel 1 Working Hospital", "DoctorModel 1 Certificate ID", "DoctorModel 1 Working Clinic", "9 AM", "4 PM", 500.0));
+        modelList.add(new DoctorModel(1, "Doctor 1", "Doctor 1 Address", "Doctor 1 Designation", "Doctor 1 Working Hospital", "Doctor 1 Certificate ID", "Doctor 1 Working Clinic", "9 AM", "4 PM", 500.0));
 
-        modelList.add(new DoctorModel(2, "DoctorModel 2", "DoctorModel 2 Address", "DoctorModel 2 Designation", "DoctorModel 2 Working Hospital", "DoctorModel 2 Certificate ID", "DoctorModel 2 Working Clinic", "11 AM", "4 PM", 500.0));
+        modelList.add(new DoctorModel(2, "Doctor 2", "Doctor 2 Address", "Doctor 2 Designation", "Doctor 2 Working Hospital", "Doctor 2 Certificate ID", "Doctor 2 Working Clinic", "11 AM", "4 PM", 500.0));
 
-        modelList.add(new DoctorModel(3, "DoctorModel 3", "DoctorModel 3 Address", "DoctorModel 3 Designation", "DoctorModel 3 Working Hospital", "DoctorModel 3 Certificate ID", "DoctorModel 3 Working Clinic", "2 PM", "4 PM", 500.0));
+        modelList.add(new DoctorModel(3, "Doctor 3", "Doctor 3 Address", "Doctor 3 Designation", "Doctor 3 Working Hospital", "Doctor 3 Certificate ID", "Doctor 3 Working Clinic", "2 PM", "4 PM", 500.0));
 
         mAdapter = new DoctorRecyclerViewAdapter(DoctorActivity.this, modelList, "Doctors");
 
