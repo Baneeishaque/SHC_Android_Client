@@ -189,7 +189,7 @@ public class DoctorActivity extends ContextActivity {
                     if (StringUtils.removeQuotations(response).equals("[]")) {
                         Toast_Utils.longToast(getApplicationContext(), "Sorry No Slots Available...");
                     } else {
-                        ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, SlotActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("slots", StringUtils.removeHyphens(StringUtils.removeFirstAndLastCharacters(response))), new Pair<>("disease", passedDisease), new Pair<>("doctor", model.getName()), new Pair<>("doctor_id", model.getId())}, false, 0);
+                        ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, SlotActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("slots", StringUtils.removeHyphens(StringUtils.removeFirstAndLastCharacters(response))), new Pair<>("disease", passedDisease), new Pair<>("doctor", model.getName()), new Pair<>("doctor_id", model.getId()), new Pair<>("doctor_details", model.getDesignation() + ", " + model.getWorkingClinic())}, false, 0);
                     }
                 }
             });

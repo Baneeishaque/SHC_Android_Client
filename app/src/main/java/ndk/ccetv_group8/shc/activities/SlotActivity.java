@@ -39,6 +39,8 @@ public class SlotActivity extends ContextActivity {
     String passedDoctor;
     String doctorId = "1";
     String passedDoctorId;
+    String doctorDetails = "Details";
+    String passedDoctorDetails;
 
     TextView textViewSelectedConsultationSlot;
     private RecyclerView recyclerView;
@@ -72,6 +74,11 @@ public class SlotActivity extends ContextActivity {
             passedDoctorId = doctorId;
         }
 
+        passedDoctorDetails = getIntent().getStringExtra("doctor_details");
+        if (passedDoctorDetails == null) {
+            passedDoctorDetails = doctorDetails;
+        }
+
         TextView textViewDisease = findViewById(R.id.textViewDisease);
         textViewDisease.setText("Disease : " + passedDisease);
 
@@ -89,7 +96,7 @@ public class SlotActivity extends ContextActivity {
 
         buttonDoctors.setOnClickListener(ButtonUtils.getBackButtonEvent(this));
 
-        buttonSubmit.setOnClickListener(ButtonUtils.getButtonEvent(() -> ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, SlotConfirmationActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctor", passedDoctor), new Pair<>("doctor_id", passedDoctorId), new Pair<>("slot", selectedSlot), new Pair<>("slot_id", selectedSlotId)}, false, 0)));
+        buttonSubmit.setOnClickListener(ButtonUtils.getButtonEvent(() -> ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, SlotConfirmationActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctor", passedDoctor), new Pair<>("doctor_details", passedDoctorDetails), new Pair<>("doctor_id", passedDoctorId), new Pair<>("slot", selectedSlot), new Pair<>("slot_id", selectedSlotId)}, false, 0)));
     }
 
     private void findViews() {

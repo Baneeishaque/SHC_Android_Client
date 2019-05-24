@@ -209,10 +209,11 @@ public class SymptomsActivity extends Options_Item_Selected_TODO_Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menuItemAppointments) {
-            ActivityUtils.start_activity(activity_context, AppointmentsActivity.class);
-            return true;
-        }
+        // TODO : Menu Item
+//        if (item.getItemId() == R.id.menuItemAppointments) {
+//            ActivityUtils.start_activity(activity_context, AppointmentsActivity.class);
+//            return true;
+//        }
         return super.onOptionsItemSelected(item);
     }
 

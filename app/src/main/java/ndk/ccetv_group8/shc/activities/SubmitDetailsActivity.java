@@ -44,6 +44,9 @@ public class SubmitDetailsActivity extends ContextActivity {
     String doctorId = "1";
     String passedDoctorId;
 
+    String doctorDetails = "Details";
+    String passedDoctorDetails;
+
     ProgressBar progressBar;
 
     @Override
@@ -74,6 +77,11 @@ public class SubmitDetailsActivity extends ContextActivity {
         passedDoctorId = getIntent().getStringExtra("doctor_id");
         if (passedDoctorId == null) {
             passedDoctorId = doctorId;
+        }
+
+        passedDoctorDetails = getIntent().getStringExtra("doctor_details");
+        if (passedDoctorDetails == null) {
+            passedDoctorDetails = doctorDetails;
         }
 
         TextView textViewTransactionID = null;
@@ -119,14 +127,14 @@ public class SubmitDetailsActivity extends ContextActivity {
                             if (StringUtils.removeQuotations(response).equals("ok")) {
                                 Toast_Utils.longToast(getApplicationContext(), "Success...");
                                 new Alert_Dialog_Utils((dialog1, which1) -> ndk.utils_android14.ActivityUtils.start_activity_with_finish(activity_context, SymptomsActivity.class, ApplicationConstants.APPLICATION_NAME), (dialog12, which12) -> {
-                                }).titled_OK_Dialogue(activity_context, "Name : " + editTextName.getText().toString() + "\n" + "Address : " + editTextAddress.getText().toString() + "\n" + "Contact Number : " + editTextContactNumber.getText().toString() + "\n\n" + "Disease : " + passedDisease + "\n" + "Doctor : " + passedDoctor + "\n" + "Slot : " + passedSlot + "\n" + "TransactionID : " + passedTransactionID + "\n\n" + "Please Keep These Things...", "Caution", false);
+                                }).titled_OK_Dialogue(activity_context, "Name : " + editTextName.getText().toString() + "\n" + "Address : " + editTextAddress.getText().toString() + "\n" + "Contact Number : " + editTextContactNumber.getText().toString() + "\n\n" + "Disease : " + passedDisease + "\n" + "Doctor : " + passedDoctor + "," + passedDoctorDetails + "\n" + "Slot : " + passedSlot + "\n" + "TransactionID : " + passedTransactionID + "\n\n" + "Please Keep These Things...", "Caution", false);
                             } else {
                                 Toast_Utils.longToast(getApplicationContext(), "Error...");
                             }
                         }
                     });
                 }, (dialog, which) -> {
-                }).titled_Yes_No_Dialogue(activity_context, "Name : " + editTextName.getText().toString() + "\n" + "Address : " + editTextAddress.getText().toString() + "\n" + "Contact Number : " + editTextContactNumber.getText().toString() + "\n\n" + "Disease : " + passedDisease + "\n" + "Doctor : " + passedDoctor + "\n" + "Slot : " + passedSlot + "\n" + "TransactionID : " + passedTransactionID, "Confirmation", true);
+                }).titled_Yes_No_Dialogue(activity_context, "Name : " + editTextName.getText().toString() + "\n" + "Address : " + editTextAddress.getText().toString() + "\n" + "Contact Number : " + editTextContactNumber.getText().toString() + "\n\n" + "Disease : " + passedDisease + "\n" + "Doctor : " + passedDoctor + ", " + passedDoctorDetails + "\n" + "Slot : " + passedSlot + "\n" + "TransactionID : " + passedTransactionID, "Confirmation", true);
             }
         }));
     }
