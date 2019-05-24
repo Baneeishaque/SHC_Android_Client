@@ -37,6 +37,8 @@ public class SlotActivity extends ContextActivity {
     String passedDisease;
     String doctor = "XYZ";
     String passedDoctor;
+    String doctorId = "1";
+    String passedDoctorId;
 
     TextView textViewSelectedConsultationSlot;
     private RecyclerView recyclerView;
@@ -45,7 +47,7 @@ public class SlotActivity extends ContextActivity {
     private ConsultationSlotRecyclerViewAdapter mAdapter;
     private ArrayList<ConsultationSlotModel> modelList = new ArrayList<>();
 
-    String selectedSlot;
+    String selectedSlot, selectedSlotId;
     Button buttonSubmit;
 
     @Override
@@ -65,6 +67,11 @@ public class SlotActivity extends ContextActivity {
             passedDoctor = doctor;
         }
 
+        passedDoctorId = getIntent().getStringExtra("doctor_id");
+        if (passedDoctorId == null) {
+            passedDoctorId = doctorId;
+        }
+
         TextView textViewDisease = findViewById(R.id.textViewDisease);
         textViewDisease.setText("Disease : " + passedDisease);
 
@@ -82,7 +89,7 @@ public class SlotActivity extends ContextActivity {
 
         buttonDoctors.setOnClickListener(ButtonUtils.getBackButtonEvent(this));
 
-        buttonSubmit.setOnClickListener(ButtonUtils.getButtonEvent(() -> ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, SlotConfirmationActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctor", passedDoctor), new Pair<>("slot", selectedSlot)}, false, 0)));
+        buttonSubmit.setOnClickListener(ButtonUtils.getButtonEvent(() -> ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, SlotConfirmationActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctor", passedDoctor), new Pair<>("doctor_id", passedDoctorId), new Pair<>("slot", selectedSlot), new Pair<>("slot_id", selectedSlotId)}, false, 0)));
     }
 
     private void findViews() {
@@ -198,10 +205,13 @@ public class SlotActivity extends ContextActivity {
 
         mAdapter.SetOnItemClickListener((view, position, model) -> {
             //handle item click events here
-//            Toast.makeText(SlotActivity.this, "Hey " + model.getSlotStart(), Toast.LENGTH_SHORT).show();
-            textViewSelectedConsultationSlot.setText("You are selected : " + model.getSlotStart() + " to " + model.getSlotEnd());
+
+//            textViewSelectedConsultationSlot.setText("You are selected : " + model.getSlotStart() + " to " + model.getSlotEnd());
+            textViewSelectedConsultationSlot.setText("You are selected : " + model.getSlotStart());
+
             String textViewSelectedConsultationSlotData = textViewSelectedConsultationSlot.getText().toString();
             selectedSlot = textViewSelectedConsultationSlotData.substring(textViewSelectedConsultationSlotData.lastIndexOf(":") + 2);
+            selectedSlotId = "5";
             buttonSubmit.setEnabled(true);
         });
 
