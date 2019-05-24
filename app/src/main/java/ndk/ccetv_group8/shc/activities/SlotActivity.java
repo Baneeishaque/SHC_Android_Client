@@ -183,7 +183,7 @@ public class SlotActivity extends ContextActivity {
                 JSONArray jsonArray = new JSONArray(slots);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    modelList.add(new ConsultationSlotModel(jsonObject.getString("appoinment_slot_time"), jsonObject.getString("appoinment_slot_time")));
+                    modelList.add(new ConsultationSlotModel(jsonObject.getString("appoinment_slot_time"), jsonObject.getString("appoinment_slot_time"), jsonObject.getInt("appoinment_slot_id")));
                 }
             } catch (JSONException e) {
                 ErrorUtilsWrapper.displayException(activity_context, e);
@@ -211,7 +211,7 @@ public class SlotActivity extends ContextActivity {
 
             String textViewSelectedConsultationSlotData = textViewSelectedConsultationSlot.getText().toString();
             selectedSlot = textViewSelectedConsultationSlotData.substring(textViewSelectedConsultationSlotData.lastIndexOf(":") + 2);
-            selectedSlotId = "5";
+            selectedSlotId = String.valueOf(model.getSlotId());
             buttonSubmit.setEnabled(true);
         });
 
