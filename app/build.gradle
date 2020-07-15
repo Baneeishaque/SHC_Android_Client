@@ -1,22 +1,27 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+
+    compileSdkVersion 29
+    buildToolsVersion '29.0.3'
+
     defaultConfig {
+
         applicationId "ndk.ccetv_group8.shc"
 
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
 
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         useLibrary 'org.apache.http.legacy'
-
     }
+
     signingConfigs {
         release {
+
             keyAlias 'snake'
             keyPassword '9895204814'
             storeFile file('../keystore.jks')
@@ -25,44 +30,39 @@ android {
     }
     buildTypes {
         release {
+
             signingConfig signingConfigs.release
             minifyEnabled false
 //            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
+
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
-//    implementation 'com.github.andyxialm:KMPAutoCompleteTextView:c9d0088c0f'
+    implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.github.BWMuller:KMPAutoCompleteTextView:2df2ee889f'
     implementation 'com.github.Cutta:TagView:1.3'
-//    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.8'
 //    implementation 'org.apache.httpcomponents:httpclient:4.5.8'
 
-//    implementation 'com.github.Baneeishaque:Android_Common_Utils_API_1:fe591bd695'
     implementation 'com.github.Baneeishaque:Android_Common_Utils_API_1:a351d6428e'
-//    implementation 'com.github.Baneeishaque:Android_Common_Utils_API_14:a69a4e1e36'
     implementation 'com.github.Baneeishaque:Android_Common_Utils_API_14:a159aea02c'
-//    implementation 'com.github.Baneeishaque:Android_Common_Utils_API_16:b627ac44f8'
-//    implementation 'com.github.Baneeishaque:Android_Common_Utils_API_16:7a228d8d14'
     implementation 'com.github.Baneeishaque:Android_Common_Utils_API_16:376372e355'
-//    implementation 'com.github.Baneeishaque:Android_Common_Utils_API_17:506ffc2197'
-//    implementation 'com.github.Baneeishaque:Android_Common_Utils_API_17:04b9d2de23'
     implementation 'com.github.Baneeishaque:Android_Common_Utils_API_17:3c2642c132'
     implementation 'com.github.Baneeishaque:Android_Common_Resources:feacd9a713'
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
 
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
