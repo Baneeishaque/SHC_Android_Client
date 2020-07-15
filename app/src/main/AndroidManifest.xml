@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="ndk.ccetv_group8.shc">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
+        android:fullBackupContent=""
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup">
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
         <activity
             android:name=".activities.AppointmentsActivity"
             android:theme="@style/AppTheme.Template.Base" />
+
         <activity
             android:name=".activities.ServerConfigurationActivity"
             android:label="@string/app_name">
@@ -23,29 +32,37 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".activities.SubmitDetailsActivity" />
+
         <activity
             android:name=".activities.PaymentActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+
         <activity android:name=".activities.SlotConfirmationActivity" />
+
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+
         <activity android:name=".activities.LaunchersActivity" />
         <activity android:name=".activities.SymptomsActivity" />
         <activity android:name=".activities.DiseasePredictionFailureNoMatchActivity" />
         <activity android:name=".activities.DiseasePredictionFailureNeedMoreSymptomsActivity" />
+
         <activity
             android:name=".activities.DiseasePredictionSuccessActivity"
             android:label="@string/results" />
+
         <activity
             android:name=".activities.DoctorActivity"
             android:label="@string/doctors"
             android:theme="@style/AppTheme.Template.Base" />
+
         <activity
             android:name=".activities.SlotActivity"
             android:label="@string/slots"
             android:theme="@style/AppTheme.Template.Base" />
-    </application>
 
+    </application>
 </manifest>
