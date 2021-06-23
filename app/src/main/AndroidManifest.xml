@@ -1,84 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="ndk.ccetv_group8.shc">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/clear_text_traffic_permitted_network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".AppointmentsActivity"
-            android:theme="@style/AppTheme.Template.Base">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup"
+        tools:targetApi="n">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
         <activity
-            android:name=".ActivityServerConfiguration"
+            android:name=".activities.AppointmentsActivity"
+            android:theme="@style/AppTheme.Template.Base" />
+
+        <activity
+            android:name=".activities.ServerConfigurationActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SubmitDetailsActivity" />
+
+        <activity android:name=".activities.SubmitDetailsActivity" />
+
         <activity
-            android:name=".PaymentActivity"
+            android:name=".activities.PaymentActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
-        <activity android:name=".SlotConfirmationActivity" />
+
+        <activity android:name=".activities.SlotConfirmationActivity" />
+
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
-        <activity android:name=".D5" />
-        <activity android:name=".D4" />
-        <activity android:name=".DISEASE3" />
-        <activity android:name=".DISEASE2" />
-        <activity android:name=".disease1" />
-        <activity android:name=".PREDICTING" />
-        <activity android:name=".AppointmentlstActivity" />
-        <activity android:name=".AddleaveActivity" />
-        <activity android:name=".DoctorshomeActivity" />
-        <activity android:name=".Re" />
-        <activity android:name=".INTERVIEW3" />
-        <activity android:name=".INTERVIEW2" />
-        <activity android:name=".INTERVIEW" />
-        <activity android:name=".REGIONS" />
-        <activity android:name=".POINT" />
-        <activity android:name=".SEAR" />
-        <activity android:name=".SYMPTOMS" />
-        <activity android:name=".PATIENT3" />
-        <activity android:name=".PATIENT2" />
-        <activity android:name=".PATIENT1" />
-        <activity android:name=".TERMS" />
-        <activity android:name=".IntroductionActivity" />
-        <activity android:name=".LaunchersActivity" />
-        <activity android:name=".SymptomsActivity" />
-        <activity android:name=".DiseasePredictionFailureNoMatch" />
-        <activity android:name=".DiseasePredictionFailureNeedMoreSymptoms" />
-        <activity android:name=".DoctorHomeActivity" />
+
+        <activity android:name=".activities.LaunchersActivity" />
+        <activity android:name=".activities.SymptomsActivity" />
+        <activity android:name=".activities.DiseasePredictionFailureNoMatchActivity" />
+        <activity android:name=".activities.DiseasePredictionFailureNeedMoreSymptomsActivity" />
+
         <activity
-            android:name=".DiseasePredictionSuccess"
+            android:name=".activities.DiseasePredictionSuccessActivity"
             android:label="@string/results" />
-        <activity android:name=".Main2Activity" />
-        <activity android:name=".LoginPageActivity" />
-        <activity android:name=".FirstPageActivity" />
-        <activity android:name=".MainActivity2" />
+
         <activity
-            android:name=".DoctorActivity"
+            android:name=".activities.DoctorActivity"
             android:label="@string/doctors"
             android:theme="@style/AppTheme.Template.Base" />
+
         <activity
-            android:name=".SlotActivity"
+            android:name=".activities.SlotActivity"
             android:label="@string/slots"
             android:theme="@style/AppTheme.Template.Base" />
-    </application>
 
+    </application>
 </manifest>
