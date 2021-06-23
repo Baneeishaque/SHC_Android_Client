@@ -7,6 +7,7 @@ import android.text.InputFilter;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.SearchView;
@@ -16,17 +17,28 @@ import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import ndk.ccetv_group8.shc.R;
 import ndk.ccetv_group8.shc.adaptors.DoctorRecyclerViewAdapter;
 import ndk.ccetv_group8.shc.models.DoctorModel;
+import ndk.ccetv_group8.shc.to_utils.StringUtils;
+import ndk.ccetv_group8.shc.wrappers.APIUtilsWrapper;
+import ndk.ccetv_group8.shc.wrappers.ErrorUtilsWrapper;
+import ndk.ccetv_group8.shc.wrappers.LogUtilsWrapper;
+import ndk.ccetv_group8.shc.wrappers.RESTGETTaskUtilsWrapper;
 import ndk.utils_android14.ContextActivity;
+import ndk.utils_android16.Toast_Utils;
 
 public class DoctorActivity extends ContextActivity {
 
     private RecyclerView recyclerView;
     private Toolbar toolbar;
+    ProgressBar progressBar;
 
     String disease = "XYZ";
     String passedDisease;
@@ -53,6 +65,7 @@ public class DoctorActivity extends ContextActivity {
     }
 
     private void findViews() {
+        progressBar = findViewById(R.id.progressBar);
         toolbar = findViewById(R.id.toolbar);
         recyclerView = findViewById(R.id.recyclerView);
     }
@@ -133,11 +146,24 @@ public class DoctorActivity extends ContextActivity {
 //        modelList.add(new AbstractModel("Nougat", "Hello " + " Nougat"));
 //        modelList.add(new AbstractModel("Android O", "Hello " + " Android O"));
 
-        modelList.add(new DoctorModel(1, "DoctorModel 1", "DoctorModel 1 Address", "DoctorModel 1 Designation", "DoctorModel 1 Working Hospital", "DoctorModel 1 Certificate ID", "DoctorModel 1 Working Clinic", "9 AM", "4 PM", 500.0));
-
-        modelList.add(new DoctorModel(2, "DoctorModel 2", "DoctorModel 2 Address", "DoctorModel 2 Designation", "DoctorModel 2 Working Hospital", "DoctorModel 2 Certificate ID", "DoctorModel 2 Working Clinic", "11 AM", "4 PM", 500.0));
-
-        modelList.add(new DoctorModel(3, "DoctorModel 3", "DoctorModel 3 Address", "DoctorModel 3 Designation", "DoctorModel 3 Working Hospital", "DoctorModel 3 Certificate ID", "DoctorModel 3 Working Clinic", "2 PM", "4 PM", 500.0));
+        String doctors = getIntent().getStringExtra("doctors");
+        if (getIntent().getExtras() != null && doctors != null
+        ) {
+            try {
+                JSONArray jsonArray = new JSONArray(doctors);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    modelList.add(new DoctorModel(jsonObject.getInt("doctor_id"), jsonObject.getString("doctor_name"), jsonObject.getString("doctor_address"), jsonObject.getString("doctor_designation"), jsonObject.getString("doctor_working_hospital"), jsonObject.getString("doctor_certificate_id"), jsonObject.getString("doctor_working_clinic"), jsonObject.getString("doctor_available_time"), jsonObject.getString("doctor_available_time"), jsonObject.getDouble("doctor_consultation_fee")));
+                }
+            } catch (JSONException e) {
+                ErrorUtilsWrapper.displayException(activity_context, e);
+            }
+        }
+//        modelList.add(new DoctorModel(1, "Doctor 1", "Doctor 1 Address", "Doctor 1 Designation", "Doctor 1 Working Hospital", "Doctor 1 Certificate ID", "Doctor 1 Working Clinic", "9 AM", "4 PM", 500.0));
+//
+//        modelList.add(new DoctorModel(2, "Doctor 2", "Doctor 2 Address", "Doctor 2 Designation", "Doctor 2 Working Hospital", "Doctor 2 Certificate ID", "Doctor 2 Working Clinic", "11 AM", "4 PM", 500.0));
+//
+//        modelList.add(new DoctorModel(3, "Doctor 3", "Doctor 3 Address", "Doctor 3 Designation", "Doctor 3 Working Hospital", "Doctor 3 Certificate ID", "Doctor 3 Working Clinic", "2 PM", "4 PM", 500.0));
 
         mAdapter = new DoctorRecyclerViewAdapter(DoctorActivity.this, modelList, "Doctors");
 
@@ -151,7 +177,23 @@ public class DoctorActivity extends ContextActivity {
         mAdapter.SetOnItemClickListener((view, position, model) -> {
             //handle item click events here
 //            Toast.makeText(DoctorActivity.this, "Hey " + model.getName(), Toast.LENGTH_SHORT).show();
-            ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, SlotActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctor", model.getName())}, false, 0);
+//            ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, SlotActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctor", model.getName())}, false, 0);
+
+            new RESTGETTaskUtilsWrapper().execute(APIUtilsWrapper.getHTTPAPI2("" + model.getId(), "get_slot"), activity_context, progressBar, response -> {
+
+                LogUtilsWrapper.debug(response);
+                if (response.equals("exception")) {
+                    //TODO : Make scenarios for no match & More Symptoms & incorporate them
+                    LogUtilsWrapper.debug("Error...");
+                } else {
+                    if (StringUtils.removeQuotations(response).equals("[]")) {
+                        Toast_Utils.longToast(getApplicationContext(), "Sorry No Slots Available...");
+                    } else {
+                        ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, SlotActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("slots", StringUtils.removeHyphens(StringUtils.removeFirstAndLastCharacters(response))), new Pair<>("disease", passedDisease), new Pair<>("doctor", model.getName()), new Pair<>("doctor_id", model.getId()), new Pair<>("doctor_details", model.getDesignation() + ", " + model.getWorkingClinic())}, false, 0);
+                    }
+                }
+            });
+
         });
 
         mAdapter.SetOnHeaderClickListener((view, headerTitle) -> {

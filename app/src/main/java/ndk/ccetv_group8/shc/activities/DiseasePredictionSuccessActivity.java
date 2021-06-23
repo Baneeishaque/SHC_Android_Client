@@ -12,10 +12,15 @@ import ndk.ccetv_group8.shc.R;
 import ndk.ccetv_group8.shc.to_utils.ActivityUtils;
 import ndk.ccetv_group8.shc.to_utils.ButtonUtils;
 import ndk.ccetv_group8.shc.to_utils.LocationUtils;
+import ndk.ccetv_group8.shc.to_utils.RESTGETTask;
+import ndk.ccetv_group8.shc.to_utils.StringUtils;
 import ndk.ccetv_group8.shc.to_utils.activities.TextWithButtonsActivity;
+import ndk.ccetv_group8.shc.wrappers.APIUtilsWrapper;
 import ndk.ccetv_group8.shc.wrappers.LogUtilsWrapper;
+import ndk.ccetv_group8.shc.wrappers.RESTGETTaskUtilsWrapper;
 import ndk.utils_android16.ProgressBar_Utils;
 import ndk.utils_android16.Snackbar_Utils;
+import ndk.utils_android16.Toast_Utils;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
@@ -57,7 +62,22 @@ public class DiseasePredictionSuccessActivity extends TextWithButtonsActivity {
                         //Got the location!
                         LogUtilsWrapper.debug(location.toString());
                         ProgressBar_Utils.showProgress(false, activity_context, progressBar, scrollView);
-                        ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, DoctorActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("longitude", location.getLongitude()), new Pair<>("latitude", location.getLatitude())}, false, 0);
+
+                        new RESTGETTaskUtilsWrapper().execute(APIUtilsWrapper.getHTTPAPI2("" + passedDisease, "get_doctor"), activity_context, progressBar, scrollView, (RESTGETTask.Async_Response) response -> {
+
+                            LogUtilsWrapper.debug(response);
+                            if (response.equals("exception")) {
+                                //TODO : Make scenarios for no match & More Symptoms & incorporate them
+                                LogUtilsWrapper.debug("Error...");
+                            } else {
+                                if (StringUtils.removeQuotations(response).equals("[]")) {
+                                    Toast_Utils.longToast(getApplicationContext(), "Sorry No Doctors Available...");
+                                } else {
+                                    ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, DoctorActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctors", StringUtils.removeHyphens(StringUtils.removeFirstAndLastCharacters(response))), new Pair<>("longitude", location.getLongitude()), new Pair<>("latitude", location.getLatitude())}, false, 0);
+                                }
+                            }
+                        });
+//                        ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, DoctorActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("longitude", location.getLongitude()), new Pair<>("latitude", location.getLatitude())}, false, 0);
                     }
                 };
                 if (locationUtils.getLocation(activity_context, locationResult)) {

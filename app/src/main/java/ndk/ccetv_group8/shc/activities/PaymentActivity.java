@@ -27,6 +27,15 @@ public class PaymentActivity extends ContextActivity {
     String slot = "5 AM to 6 AM";
     String passedSlot;
 
+    String slotId = "6";
+    String passedSlotId;
+
+    String doctorId = "1";
+    String passedDoctorId;
+
+    String doctorDetails = "Details";
+    String passedDoctorDetails;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +56,21 @@ public class PaymentActivity extends ContextActivity {
             passedSlot = slot;
         }
 
+        passedSlotId = getIntent().getStringExtra("slot_id");
+        if (passedSlotId == null) {
+            passedSlotId = slotId;
+        }
+
+        passedDoctorId = getIntent().getStringExtra("doctor_id");
+        if (passedDoctorId == null) {
+            passedDoctorId = doctorId;
+        }
+
+        passedDoctorDetails = getIntent().getStringExtra("doctor_details");
+        if (passedDoctorDetails == null) {
+            passedDoctorDetails = doctorDetails;
+        }
+
         WebView wv = findViewById(R.id.webView);
         wv.loadUrl("file:///android_asset/paymentPage.html");
 
@@ -65,7 +89,7 @@ public class PaymentActivity extends ContextActivity {
 //                }
                 int transactionID = new Random().nextInt(1000);
                 new Alert_Dialog_Utils((dialog, which) -> {
-                    ndk.utils_android14.ActivityUtils.start_activity_with_string_extras_and_finish(activity_context, SubmitDetailsActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctor", passedDoctor), new Pair<>("slot", passedSlot), new Pair<>("transactionID", String.valueOf(transactionID))});
+                    ndk.utils_android14.ActivityUtils.start_activity_with_string_extras_and_finish(activity_context, SubmitDetailsActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctor", passedDoctor), new Pair<>("slot", passedSlot), new Pair<>("transactionID", String.valueOf(transactionID)), new Pair<>("doctor_id", passedDoctorId), new Pair<>("slot_id", passedSlotId), new Pair<>("doctor_details", passedDoctorDetails)});
                 }, (dialog, which) -> {
                 }).titled_OK_Dialogue(activity_context, "Your Transaction ID is " + transactionID + ", Please Keep it for further queries.", "Payment Success!", false);
             }
@@ -73,7 +97,7 @@ public class PaymentActivity extends ContextActivity {
 
         wv.addJavascriptInterface(new WebAppInterface(this, () -> {
             Snackbar_Utils.display_Short_no_FAB_error_bottom_SnackBar(activity_context, "Failure");
-            ActivityUtils.start_activity_with_string_extras_and_finish(activity_context, SlotConfirmationActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctor", passedDoctor), new Pair<>("slot", passedSlot), new Pair<>("payment", "Failure")});
+            ActivityUtils.start_activity_with_string_extras_and_finish(activity_context, SlotConfirmationActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctor", passedDoctor), new Pair<>("slot", passedSlot), new Pair<>("payment", "Failure"), new Pair<>("doctor_id", passedDoctorId), new Pair<>("slot_id", passedSlotId)});
         }), "Failure");
     }
 }

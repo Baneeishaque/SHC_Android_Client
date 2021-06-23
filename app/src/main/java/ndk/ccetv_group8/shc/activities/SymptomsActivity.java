@@ -28,13 +28,13 @@ import ndk.ccetv_group8.shc.R;
 import ndk.ccetv_group8.shc.models.TagClassModel;
 import ndk.ccetv_group8.shc.to_utils.RESTGETTask;
 import ndk.ccetv_group8.shc.to_utils.StringUtils;
+import ndk.ccetv_group8.shc.to_utils.Toast_Utils;
 import ndk.ccetv_group8.shc.wrappers.APIUtilsWrapper;
 import ndk.ccetv_group8.shc.wrappers.ErrorUtilsWrapper;
 import ndk.ccetv_group8.shc.wrappers.LogUtilsWrapper;
 import ndk.ccetv_group8.shc.wrappers.RESTGETTaskUtilsWrapper;
 import ndk.utils_android14.ActivityUtils;
 import ndk.utils_android16.Alert_Dialog_Utils;
-import ndk.utils_android16.Toast_Utils;
 import ndk.utils_android16.activities.Options_Item_Selected_TODO_Activity;
 
 public class SymptomsActivity extends Options_Item_Selected_TODO_Activity {
@@ -113,7 +113,7 @@ public class SymptomsActivity extends Options_Item_Selected_TODO_Activity {
             //TODO : Make Toast Activity
             //TODO : Make Toast Composition Activity
             //TODO : Short Toast
-            Toast_Utils.longToast(getApplicationContext(), getResources().getString(R.string.symptom) + charSequence.toString());
+            Toast_Utils.shortToast(getApplicationContext(), getResources().getString(R.string.symptom) + charSequence.toString());
             buttonAddSymptom.setEnabled(true);
         });
 
@@ -121,7 +121,7 @@ public class SymptomsActivity extends Options_Item_Selected_TODO_Activity {
             String symptom = editTextSymptom.getText().toString();
             if (!symptom.isEmpty()) {
                 //TODO : Validate symptom
-                Toast_Utils.longToast(getApplicationContext(), getResources().getString(R.string.symptom) + symptom);
+                Toast_Utils.shortToast(getApplicationContext(), getResources().getString(R.string.symptom) + symptom);
 //                addTagWithRefreshList(tagGroup,symptom,data,editTextSymptom, buttonAddSymptom, buttonEvaluateSymptoms);
 //                addTag(tagGroup, symptom);
                 addTagWithEvaluation(tagGroup, symptom, data, editTextSymptom, buttonAddSymptom, buttonEvaluateSymptoms);
@@ -209,10 +209,11 @@ public class SymptomsActivity extends Options_Item_Selected_TODO_Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menuItemAppointments) {
-            ActivityUtils.start_activity(activity_context, AppointmentsActivity.class);
-            return true;
-        }
+        // TODO : Menu Item
+//        if (item.getItemId() == R.id.menuItemAppointments) {
+//            ActivityUtils.start_activity(activity_context, AppointmentsActivity.class);
+//            return true;
+//        }
         return super.onOptionsItemSelected(item);
     }
 

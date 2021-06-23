@@ -26,6 +26,7 @@ public class RESTGETTask extends AsyncTask<Void, Void, String[]> {
 
     private int progress_flag = 0;
     private int response_flag = 0;
+    private int form_flag = 0;
     private int splash_flag = 0;
     private boolean background_flag = false;
     private boolean error_flag = true;
@@ -54,6 +55,17 @@ public class RESTGETTask extends AsyncTask<Void, Void, String[]> {
         this.TAG = TAG;
         this.async_response = async_response;
         response_flag = 1;
+    }
+
+    public RESTGETTask(String URL, Context context, View progressBar, String TAG, Async_Response async_response) {
+
+        this.URL = URL;
+        this.context = context;
+        this.progressBar = progressBar;
+        this.TAG = TAG;
+        this.async_response = async_response;
+        response_flag = 1;
+        form_flag = 1;
     }
 
     public RESTGETTask(String URL, Context context, View progressBar, View form, String TAG, Async_Response_JSON_object async_response_json_object) {
@@ -129,7 +141,11 @@ public class RESTGETTask extends AsyncTask<Void, Void, String[]> {
     protected void onPostExecute(final String[] network_action_response_array) {
 
         if (progress_flag == 0) {
-            showProgress(false, context, progressBar, form);
+            if (form_flag == 0) {
+                showProgress(false, context, progressBar, form);
+            } else if (form_flag == 1) {
+                ProgressBarUtils.showProgress(false, context, progressBar);
+            }
         }
 
         if (response_flag == 1) {

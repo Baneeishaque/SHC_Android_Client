@@ -14,4 +14,8 @@ public class APIUtilsWrapper {
     public static String getHTTPAPI(String methodName) {
         return API_Utils.get_http_API(methodName, APIConstants.SERVER_IP_ADDRESS, APIConstants.HTTP_API_FOLDER, APIConstants.FILE_EXTENSION);
     }
+
+    public static String getHTTPAPI2(String methodName, String api) {
+        return API_Utils.get_http_API(methodName, APIConstants.SERVER_IP_ADDRESS, api, APIConstants.FILE_EXTENSION);
+    }
 }

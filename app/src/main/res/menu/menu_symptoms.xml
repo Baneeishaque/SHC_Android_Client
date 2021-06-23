@@ -6,9 +6,9 @@
         android:icon="@android:drawable/ic_menu_help"
         android:title="Help"
         compat:showAsAction="always" />
-    <item
-        android:id="@+id/menuItemAppointments"
-        android:icon="@android:drawable/ic_menu_save"
-        android:title="Appointments"
-        compat:showAsAction="always" />
+    <!--<item-->
+    <!--android:id="@+id/menuItemAppointments"-->
+    <!--android:icon="@android:drawable/ic_menu_save"-->
+    <!--android:title="Appointments"-->
+    <!--compat:showAsAction="always" />-->
 </menu>

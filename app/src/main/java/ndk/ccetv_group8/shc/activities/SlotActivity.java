@@ -18,12 +18,17 @@ import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import ndk.ccetv_group8.shc.R;
 import ndk.ccetv_group8.shc.adaptors.ConsultationSlotRecyclerViewAdapter;
 import ndk.ccetv_group8.shc.models.ConsultationSlotModel;
 import ndk.ccetv_group8.shc.to_utils.ButtonUtils;
+import ndk.ccetv_group8.shc.wrappers.ErrorUtilsWrapper;
 import ndk.utils_android14.ContextActivity;
 
 public class SlotActivity extends ContextActivity {
@@ -32,6 +37,10 @@ public class SlotActivity extends ContextActivity {
     String passedDisease;
     String doctor = "XYZ";
     String passedDoctor;
+    String doctorId = "1";
+    String passedDoctorId;
+    String doctorDetails = "Details";
+    String passedDoctorDetails;
 
     TextView textViewSelectedConsultationSlot;
     private RecyclerView recyclerView;
@@ -40,7 +49,7 @@ public class SlotActivity extends ContextActivity {
     private ConsultationSlotRecyclerViewAdapter mAdapter;
     private ArrayList<ConsultationSlotModel> modelList = new ArrayList<>();
 
-    String selectedSlot;
+    String selectedSlot, selectedSlotId;
     Button buttonSubmit;
 
     @Override
@@ -60,11 +69,21 @@ public class SlotActivity extends ContextActivity {
             passedDoctor = doctor;
         }
 
+        passedDoctorId = getIntent().getStringExtra("doctor_id");
+        if (passedDoctorId == null) {
+            passedDoctorId = doctorId;
+        }
+
+        passedDoctorDetails = getIntent().getStringExtra("doctor_details");
+        if (passedDoctorDetails == null) {
+            passedDoctorDetails = doctorDetails;
+        }
+
         TextView textViewDisease = findViewById(R.id.textViewDisease);
         textViewDisease.setText("Disease : " + passedDisease);
 
         TextView textViewDoctor = findViewById(R.id.textViewDoctor);
-        textViewDoctor.setText("DoctorModel : " + passedDoctor);
+        textViewDoctor.setText("Doctor : " + passedDoctor);
 
         findViews();
         setSupportActionBar(toolbar);
@@ -77,7 +96,7 @@ public class SlotActivity extends ContextActivity {
 
         buttonDoctors.setOnClickListener(ButtonUtils.getBackButtonEvent(this));
 
-        buttonSubmit.setOnClickListener(ButtonUtils.getButtonEvent(() -> ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, SlotConfirmationActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctor", passedDoctor), new Pair<>("slot", selectedSlot)}, false, 0)));
+        buttonSubmit.setOnClickListener(ButtonUtils.getButtonEvent(() -> ndk.utils_android14.ActivityUtils.start_activity_with_string_extras(activity_context, SlotConfirmationActivity.class, new Pair[]{new Pair<>("disease", passedDisease), new Pair<>("doctor", passedDoctor), new Pair<>("doctor_details", passedDoctorDetails), new Pair<>("doctor_id", passedDoctorId), new Pair<>("slot", selectedSlot), new Pair<>("slot_id", selectedSlotId)}, false, 0)));
     }
 
     private void findViews() {
@@ -164,9 +183,24 @@ public class SlotActivity extends ContextActivity {
 
 //        modelList.add(new DoctorModel(1, "DoctorModel", "Address", "Designation", "Working Hospital", "Certificate ID", "Working Clinic", new Time(0), new Time(0), 500.0));
 
-        modelList.add(new ConsultationSlotModel("9 AM", "10 AM"));
-        modelList.add(new ConsultationSlotModel("11 AM", "12 PM"));
-        modelList.add(new ConsultationSlotModel("3 PM", "4 PM"));
+        String slots = getIntent().getStringExtra("slots");
+        if (getIntent().getExtras() != null && slots != null
+        ) {
+            try {
+                JSONArray jsonArray = new JSONArray(slots);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    modelList.add(new ConsultationSlotModel(jsonObject.getString("appoinment_slot_time"), jsonObject.getString("appoinment_slot_time"), jsonObject.getInt("appoinment_slot_id")));
+                }
+            } catch (JSONException e) {
+                ErrorUtilsWrapper.displayException(activity_context, e);
+            }
+        }
+
+//        modelList.add(new ConsultationSlotModel("9 AM", "10 AM"));
+//        modelList.add(new ConsultationSlotModel("11 AM", "12 PM"));
+//        modelList.add(new ConsultationSlotModel("3 PM", "4 PM"));
+
         mAdapter = new ConsultationSlotRecyclerViewAdapter(activity_context, modelList, "Time Slots");
 
         recyclerView.setHasFixedSize(true);
@@ -178,10 +212,13 @@ public class SlotActivity extends ContextActivity {
 
         mAdapter.SetOnItemClickListener((view, position, model) -> {
             //handle item click events here
-//            Toast.makeText(SlotActivity.this, "Hey " + model.getSlotStart(), Toast.LENGTH_SHORT).show();
-            textViewSelectedConsultationSlot.setText("You are selected : " + model.getSlotStart() + " to " + model.getSlotEnd());
+
+//            textViewSelectedConsultationSlot.setText("You are selected : " + model.getSlotStart() + " to " + model.getSlotEnd());
+            textViewSelectedConsultationSlot.setText("You are selected : " + model.getSlotStart());
+
             String textViewSelectedConsultationSlotData = textViewSelectedConsultationSlot.getText().toString();
             selectedSlot = textViewSelectedConsultationSlotData.substring(textViewSelectedConsultationSlotData.lastIndexOf(":") + 2);
+            selectedSlotId = String.valueOf(model.getSlotId());
             buttonSubmit.setEnabled(true);
         });
 
