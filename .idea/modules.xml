@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/SHC_Android_Client-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/SHC_Android_Client-app.iml" group="SHC_Android_Client/app" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/android-SHC_Android_Client.iml" filepath="$PROJECT_DIR$/.idea/modules/android-SHC_Android_Client.iml" group="SHC_Android_Client" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SHC_Android_Client.iml" filepath="$PROJECT_DIR$/.idea/modules/SHC_Android_Client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/SHC_Android_Client.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/SHC_Android_Client.app.iml" />
     </modules>
   </component>
 </project>
